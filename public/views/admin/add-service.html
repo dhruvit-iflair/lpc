@@ -1,0 +1,49 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{title}}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form id="service_form" name="serviceForm" class="form-horizontal" role="form" ng-submit="submit(serviceData)" novalidate>
+                            <div class="form-group" ng-class="{'has-error': (serviceForm.Title.$touched || submitted) && serviceForm.Title.$invalid}">
+                                <label class="col-sm-2">Title*</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="Title" type="text" ng-model="serviceData.title" maxlength="15" 
+                                        ng-trim="false" minlength="2" letter-length required>
+                                    <p class="errors" ng-show="(serviceForm.Title.$touched || submitted) && serviceForm.Title.$error.required">
+                                        Please enter title
+                                    </p>
+                                    <p class="errors" ng-show="serviceForm.Title.$error.minlength">
+                                        Length should be greater than 2
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': (serviceForm.Description.$touched || submitted) && serviceForm.Description.$invalid}">
+                                <label class="col-sm-2">Description*</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="10" class="form-control" name="Description" ng-model="serviceData.description" maxlength="200" required></textarea>
+                                    <p class="errors" ng-show="(serviceForm.Description.$touched || submitted) && serviceForm.Description.$invalid">
+                                        Please enter description
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="!editService">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="editService">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="update(serviceData)">Update</button>
+                                    <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        

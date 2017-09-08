@@ -1,0 +1,96 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{title}}</h5>
+                </div>
+                    
+                <div class="ibox-content">
+                    <form id="package_form" name="packageForm" class="form-horizontal" role="form" ng-submit="submit(packageData)" novalidate>
+                        <div class="float-e-margins">
+                            <div class="ibox-title noneborder">
+                                <h5>All Classes</h5>
+                            </div>
+                            <div class="ibox-content" ng-class="{ 'has-error' : (packageForm.Class.$touched || submitted) && packageForm.Class.$invalid }">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <th></th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Class</th>
+                                            <th>Business Name</th>
+                                            <th>Attendance</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="data in repeatData">
+                                                <td>
+                                                    <input ng-if="!editPackage" id="inputs" name="Class" type="checkbox"
+                                                    ng-click="toggleClass(data.value)">
+                                                    <input ng-if="editPackage" id="inputs" name="Class" type="checkbox"
+                                                    ng-checked = "classsData.indexOf(data.value) != -1" ng-click="toggleClass(data.value)">
+                                                </td>
+                                                <td>{{data.data.date | date: 'yyyy-MM-dd'}}</td>
+                                                <td>{{data.data.time_from}} {{data.time_to}}</td>
+                                                <td>{{data.data.class_name}}</td>
+                                                <td>{{data.data.business_name}}</td>
+                                                <td>6/10</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="radio-inline errors" ng-if="classError">
+                                        Please select atleast one class
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': (packageForm.Name.$touched || submitted) && packageForm.Name.$invalid}">
+                            <label class="col-sm-2">Package Name*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="Name" type="text" ng-model="packageData.package_name" maxlength="15" 
+                                 minlength="5" required>
+                                <p class="errors" ng-show="(packageForm.Name.$touched || submitted) && packageForm.Name.$error.required">
+                                    Please enter package name
+                                </p>
+                                <p class="errors" ng-show="packageForm.Name.$error.minlength">
+                                    Length should be greater than or equalto 5
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': (packageForm.Discount.$touched || submitted) && packageForm.Discount.$invalid}">
+                            <label class="col-sm-2">Discount*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="Discount" ng-model="packageData.discount" maxlength="3" required number-length>
+                                <p class="errors" ng-show="(packageForm.Discount.$touched || submitted) && packageForm.Discount.$invalid">
+                                    Please enter discount
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!editPackage">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="editPackage">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="update(packageData)">Update</button>
+                                <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // $(document).ready(function() {
+    //     $('#inputs').iCheck({
+    //         checkboxClass: 'icheckBox_square-pink',
+    //         increaseArea: '20%'
+    //     })
+    // })
+</script>
+        

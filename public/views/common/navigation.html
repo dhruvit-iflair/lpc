@@ -1,0 +1,61 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="header-logo">
+                    <img src="img/logo.png">
+                </div>
+                <div class="logo-element">
+                    <img src="img/logo.png">
+                </div>
+            </li>
+            <li ng-class="{active: $state.includes('index.dashboard')}">
+                <a ui-sref="index.dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> </a>
+            </li>
+            <li ng-class="{active: $state.includes('customer')}">
+                <a><i class="fa fa-users"></i> <span class="nav-label">Customers</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ui-sref-active="active"><a ui-sref="customer.customer-list">View</a></li>
+                    <li ui-sref-active="active"><a ui-sref="customer.add-customer({id: ''})">Add</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('business')}">
+                <a><i class="fa fa-briefcase"></i> <span class="nav-label">Business</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ui-sref-active="active"><a ui-sref="business.business-list">View</a></li>
+                    <li ui-sref-active="active"><a ui-sref="business.add-business({id: ''})">Add</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('service')}">
+                <a><i class="fa fa-briefcase"></i> <span class="nav-label">Main Services Offered</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                        <li ui-sref-active="active"><a ui-sref="service.service-list">View</a></li>
+                    <li ui-sref-active="active"><a ui-sref="service.add-service({id: ''})">Add</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('event')}">
+                <a><i class="fa fa-briefcase"></i> <span class="nav-label">Special Events Offered</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ui-sref-active="active"><a ui-sref="event.event-list">View</a></li>
+                    <li ui-sref-active="active"><a ui-sref="event.add-event({id: ''})">Add</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('class')}">
+                <a><i class="fa fa-briefcase"></i> <span class="nav-label">Class</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ui-sref-active="active"><a ui-sref="class.class-list">View</a></li>
+                    <li ui-sref-active="active"><a ui-sref="class.add-class({id: ''})">Add</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('package')}">
+                <a><i class="fa fa-gift"></i> <span class="nav-label">Package</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ui-sref-active="active"><a ui-sref="package.package-list">View</a></li>
+                    <li ui-sref-active="active"><a ui-sref="package.add-package({id: ''})">Add</a></li>
+                </ul>
+            </li>
+           
+        </ul>
+
+    </div>
+</nav>
