@@ -1,0 +1,123 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{title}}</h5>
+            </div>
+            <div class="ibox-content">
+                <form id="customer_form" name="customerForm" class="form-horizontal" role="form" ng-submit="submit(customerData)" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Firstname.$touched || submitted) && customerForm.Firstname.$invalid }">
+                        <label class="col-sm-2">First Name*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_firstname" class="form-control" name="Firstname" type="text" ng-model="customerData.firstname" maxlength="15" ng-trim="false" letter-length required>
+                            <p class="errors" ng-show="(customerForm.Firstname.$touched || submitted) && customerForm.Firstname.$invalid">
+                                Please enter first name
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Lastname.$touched || submitted) && customerForm.Lastname.$invalid }">
+                        <label class="col-sm-2">Last Name*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_lastname" class="form-control" name="Lastname" type="text" ng-model="customerData.lastname" maxlength="15" ng-trim="false" letter-length required>
+                            <p class="errors" ng-show="(customerForm.Lastname.$touched || submitted) && customerForm.Lastname.$invalid">
+                                Please enter last name
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Phonenumber.$touched || submitted) && customerForm.Phonenumber.$invalid }">
+                        <label class="col-sm-2">Phone Number*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_phone" class="form-control" name="Phonenumber" 
+                                type="text" pattern="[0-9]{10}" maxlength="10" ng-model="customerData.contact" ng-trim="false" required number-length>
+                            <p class="errors" ng-show="(customerForm.Phonenumber.$touched || submitted) && customerForm.Phonenumber.$error.required">
+                                Please enter phone number
+                            </p>
+                            <p class="errors" ng-show="customerForm.Phonenumber.$error.pattern">
+                                Phone number should not be less than 10 digits
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Email.$touched || submitted) && customerForm.Email.$invalid }">
+                        <label class="col-sm-2">Email Address*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_email" class="form-control" name="Email" type="email" ng-model="customerData.email" 
+                            ng-pattern="/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/" ng-trim="false" required>
+                                <label id="email_error"></label>
+                            <p class="errors" ng-show="(customerForm.Email.$touched || submitted) && customerForm.Email.$error.required">
+                                Please enter email address
+                            </p>
+                            <p class="errors" ng-show="customerForm.Email.$error.pattern">
+                                Please enter valid email address
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Password.$touched || submitted) && customerForm.Password.$invalid }">
+                        <label class="col-sm-2">Password*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_password" class="form-control" name="Password" value="" type="password" ng-model="customerData.password" maxlength="20" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/" required>
+                            <p class="errors" ng-show="(customerForm.Password.$touched || submitted) && customerForm.Password.$error.required">
+                                Please enter the Password
+                            </p>
+                            <p class="errors" ng-show="customerForm.Password.$error.pattern">
+                                Password should be atleast 6 characters long and should contain one number,one character and one special character
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Address.$touched || submitted) && customerForm.Address.$invalid }">
+                        <label class="col-sm-2">Street Address*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_street_address" class="form-control" name="Address" type="text" ng-model="customerData.street_address" maxlength="50" required>
+                            <p class="errors" ng-show="(customerForm.Address.$touched || submitted) && customerForm.Address.$invalid">
+                                Please enter the address
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.City.$touched || submitted) && customerForm.City.$invalid }">
+                        <label class="col-sm-2">City*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_city" class="form-control" name="City" type="text" ng-model="customerData.city" maxlength="15" ng-trim="false" letter-length required>
+                            <p class="errors" ng-show="(customerForm.City.$touched || submitted) && customerForm.City.$invalid">
+                                Please enter city name
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.State.$touched || submitted) && customerForm.State.$invalid }">
+                        <label class="col-sm-2">State*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_state" class="form-control" name="State" type="text" ng-model="customerData.state" maxlength="15" ng-trim="false" letter-length required>
+                            <p class="errors" ng-show="(customerForm.State.$touched || submitted) && customerForm.State.$invalid">
+                                Please enter state name
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : (customerForm.Zipcode.$touched || submitted) && customerForm.Zipcode.$invalid }">
+                        <label class="col-sm-2">Zip*</label>
+                        <div class="col-sm-10">
+                            <input id="customer_zip" class="form-control" name="Zipcode" 
+                                type="text" pattern="[0-9]{6}" maxlength="6" ng-model="customerData.zip" ng-trim="false" required number-length>
+                            <p class="errors" ng-show="(customerForm.Zipcode.$touched || submitted) && customerForm.Zipcode.$error.required">
+                                Please enter zipcode
+                            </p>
+                            <p class="errors" ng-show="customerForm.Zipcode.$error.pattern">
+                                Zipcode should be of 6 digits
+                            </p>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2" ng-if="!editCustomer">
+                            <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="editCustomer">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="update(customerData)">Update</button>
+                            <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

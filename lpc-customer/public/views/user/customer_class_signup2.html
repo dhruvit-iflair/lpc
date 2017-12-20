@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="col-lg-12">
+                <div class="ibox-title">
+                    <div class="col-md-12">
+                        <h1 style="font-family: Arial, Helvetica, sans-serif">
+                            Sign-Up - Thank You
+                        </h1>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="container cf" style="height: 50px; background-color: #F2F2F2">
+                        <div class="col-md-4" style="margin-top: 8px">
+                            <div class="my-account">
+                                <a ng-click="cancelOrder()" style="display: inline-block; color: black;font-size: 13px; font-family: fivo_sansmedium;border: 1px solid black;
+                                    height: 35px; line-height: 35px; padding: 0 15px;background-color: #ffffff">
+                                Cancel Order
+                            </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="margin-top: 15px">
+                            <p style="float: right; font-weight: 700">Step 2 of 2</p>
+                        </div>
+                    </div>
+
+                    <br><br>
+                    <div class="col-md-4" >
+                        <strong>Date</strong>
+                    </div>
+                    <div class="col-md-8">
+                        {{class.date | date: 'dd/MM/yyyy'}}
+                    </div>
+                    <br><br>
+                    <div class="col-md-4" >
+                        <strong>Time</strong>
+                    </div>
+                    <div class="col-md-8">
+                        {{ class.time_from }} to {{ class.time_to }}
+                    </div>
+                    <br><br>
+                    <div class="col-md-4" >
+                        <strong>Class</strong>
+                    </div>
+                    <div class="col-md-8">
+                        {{class.class_name}}
+                    </div>
+                    <br><br>
+                    <div class="col-md-4" >
+                        <strong>LPC</strong>
+                    </div>
+                    <div class="col-md-8">
+                        {{class._businessId.firstname}} {{class._businessId.lastname}} - 
+                            {{class._businessId.street_address}}, {{class._businessId.city}} 
+                            {{class._businessId.state}} {{class._businessId.zip}}  
+                    </div>
+                    <br><br>
+                    <div class="col-md-4" >
+                        <strong>Kids Attending</strong>
+                    </div>
+                    <div class="col-md-8">
+                        <span ng-repeat="kid in kudos.check">
+                            {{kid}}<font ng-show='!$last'>,</font>
+                        </span>
+                    </div>
+                    <br><br>
+                    <hr style=" border-color: #DEDEDE">
+                    <div class="col-md-4" >
+                        <strong>Total Charge </strong>
+                    </div>
+                    <div class="col-md-8">
+                        ${{price}}
+                    </div>
+                    <div ng-if="!kudos">
+                        <br><br>
+                        <div class="col-md-4" >
+                            <strong>Payment Method</strong>
+                        </div>
+                        <div class="col-md-8">
+                        {{kudos.select}}
+                        </div>
+                    </div>
+                    <br><br>
+                    <hr style=" border-color: #DEDEDE">
+                    
+                    <div class="col-md-4">
+                        <button ng-click="goTo()" style="color: black; background-color: #ffffff" class="btn btn-primary btn-lg" type="button">
+                            Pay
+                        </button>
+                    </div>
+                    <br><br><br>
+                </div>
+            </div>
+        </div>
+    </div>

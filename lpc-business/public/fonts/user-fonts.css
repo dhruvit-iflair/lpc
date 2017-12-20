@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'fivo_sansmedium';
+    src: url('fivosans-medium-webfont.woff2') format('woff2'),
+         url('fivosans-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fivo_sansregular';
+    src: url('fivosans-regular-webfont.woff2') format('woff2'),
+         url('fivosans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'monky_-_basicregular';
+    src: url('monky--_basic-webfont.woff2') format('woff2'),
+         url('monky--_basic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

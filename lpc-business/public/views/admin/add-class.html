@@ -1,0 +1,149 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{title}}</h5>
+                </div>
+                <div class="ibox-content">
+                    <form id="class_form" name="classForm" class="form-horizontal" role="form" ng-submit="submit(classData)" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Businessname.$touched || submitted) && classForm.Businessname.$invalid }">
+                            <label class="col-sm-2">Business Name*</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="Businessname" ng-model="classData._businessId" ng-options="b.name for b in businesses track by b._id" required>
+                                    <option value="">Select Business Name</option>
+                                </select>
+                                <p class="errors" ng-show="(classForm.Businessname.$touched || submitted) && classForm.Businessname.$invalid">
+                                    Please select business name
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Date.$touched || submitted) && classForm.Date.$invalid }">
+                            <label class="col-sm-2">Date*</label>
+                            <div class="col-sm-10">
+                                <input date-picker id="dater" class="form-control" name="Date" type="text" ng-model="classData.date" required>
+                                <p class="errors" ng-show="(classForm.Date.$touched || submitted) && classForm.Date.$invalid">
+                                    Please select a date
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Time.$touched || submitted) && classForm.Time.$invalid }">
+                            <label class="col-sm-2">Time*</label>
+                            <div class="col-sm-10" date-pair>
+                                <input time-picker class="form-control time start timeFromBox" name="Time" type="text" ng-model="classData.time_from" required>
+                                <label class="col-sm-1 control-label">To*</label>
+                                <input time-picker class="form-control time end timeToBox" name="Time" type="text" ng-model="classData.time_to" required>
+                                <p class="errors" ng-show="(classForm.Time.$touched || submitted) && classForm.Time.$invalid">
+                                    Please select both times from dropdown
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Classname.$touched || submitted) && classForm.Classname.$invalid }">
+                            <label class="col-sm-2">Class Name*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="Classname" type="text" ng-model="classData.class_name" maxlength="25" minlength="3" letter-length required>
+                                <p class="errors" ng-show="(classForm.Classname.$touched || submitted) && classForm.Classname.$error.required">
+                                    Please enter class name
+                                </p>
+                                <p class="errors" ng-show="(classForm.Classname.$touched || submitted) && classForm.Classname.$error.minlength">
+                                    Length should be greater than 3
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2">Special Instruction*</label>
+                            <div class="col-sm-10">
+                                <!-- <summer-note ng-model="classData.instruction"></summer-note> -->
+				                <div id="summernote" ng-model="classData.instruction" summer-note></div>
+				            </div>
+				        </div>
+                        
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Location.$touched || submitted) && classForm.Location.$invalid }">
+                            <label class="col-sm-2">Location*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="Location" type="text" ng-model="classData.location" maxlength="70" minlength="5" required>
+                                <p class="errors" ng-show="(classForm.Location.$touched || submitted) && classForm.Location.$error.required">
+                                    Please enter location
+                                </p>
+                                <p class="errors" ng-show="(classForm.Location.$touched || submitted) && classForm.Location.$error.minlength">
+                                    Length should be greater than 5
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Duplicate.$touched || submitted) && classForm.Duplicate.$invalid }">
+                            <label class="col-sm-2">Duplicate*</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="Duplicate" ng-model="classData.duplicate" ng-options="d for d in duplicate" ng-change="bindDuplicate(classData)" required>
+                                    <option value="">Select Duplication Value</option>
+                                </select>
+                                <p class="errors" ng-show="(classForm.Duplicate.$touched || submitted) && classForm.Duplicate.$invalid">
+                                    Please select duplicate
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="showWeek" ng-class="{ 'has-error' : (classForm.Every.$touched || submitted) && classForm.Every.$invalid }">
+                            <label class="col-sm-2">Every*</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="Every" ng-model="classData.week" ng-options="e for e in every" required>
+                                    <option value="">Select Duplication Every</option>
+                                </select>
+                                <p class="errors" ng-show="(classForm.Every.$touched || submitted) && classForm.Every.$invalid">
+                                    Please select week
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-if="showWeek" ng-class="{ 'has-error' : (businessForm.On.$touched || submitted) && businessForm.On.$invalid }">
+                            <label class="col-sm-2">On*</label>
+                            <div class="col-sm-10">
+                                <div class="i-checks" ng-repeat="days in days">
+                                    <label>
+                                        <input type="checkbox" ng-if="!editClass" name="On" ng-model="days.selected" ng-required="days.length == 0"
+                                        ng-click="toggleDays(days.name)">
+                                        <input type="checkbox" ng-if="editClass" name="On" ng-model="days.selected" ng-checked="classData.day.indexOf(days.name) != -1"
+                                        ng-click="toggleDays(days.name)">
+                                        {{days.name}}
+                                        
+                                    </label>
+                                </div>
+                                <p class="radio-inline errors" ng-if="daysError">
+                                        Please select atleast one day
+                                    </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Copies.$touched || submitted) && classForm.Copies.$invalid }">
+                            <label class="col-sm-2">Copies*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="Copies" type="text" ng-model="classData.copies" maxlength="5" required number-length>
+                                <p class="errors" ng-show="(classForm.Copies.$touched || submitted) && classForm.Copies.$invalid">
+                                    Please enter copies
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Price.$touched || submitted) && classForm.Price.$invalid }">
+                            <label class="col-sm-2">Price*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="Price" type="text" ng-model="classData.price" maxlength="5" required number-length>
+                                <p class="errors" ng-show="(classForm.Price.$touched || submitted) && classForm.Price.$invalid">
+                                    Please enter price
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!editClass">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="editClass">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="update(classData)">Update</button>
+                                <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Add Kid</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form id="kid_form" name="kidForm" class="form-horizontal" role="form" ng-submit="submit(kidData)" novalidate>
+                            <div class="form-group" ng-class="{ 'has-error' : (kidForm.Firstname.$touched || submitted) && kidForm.Firstname.$invalid }">
+                                <label class="col-sm-2">First Name</label>
+                                <div class="col-sm-10">
+                                    <input id="kid_firstname" class="form-control" name="Firstname" type="text" ng-model="kidData.firstname" maxlength="15" ng-trim="false" letter-length required>
+                                    <p class="errors" ng-show="(kidForm.Firstname.$touched || submitted) && kidForm.Firstname.$invalid">
+                                        Please enter first name
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : (kidForm.Lastname.$touched || submitted) && kidForm.Lastname.$invalid }">
+                                <label class="col-sm-2">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input id="kid_lastname" class="form-control" name="Lastname" type="text" ng-model="kidData.lastname"  maxlength="15" ng-trim="false" letter-length required>
+                                    <p class="errors" ng-show="(kidForm.Lastname.$touched || submitted) && kidForm.Lastname.$invalid">
+                                        Please enter last name
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : (kidForm.restriction.$touched || submitted) && kidForm.restriction.$invalid }">
+                                <label class="col-sm-2">Dietary Restrictions / Special Instruction</label>
+                                <div class="col-sm-10">
+                                    <input id="kid_restriction" class="form-control" name="restriction" type="text" ng-model="kidData.restriction"  maxlength="50"  required>
+                                    <p class="errors" ng-show="(kidForm.restriction.$touched || submitted) && kidForm.restriction.$invalid">
+                                        Please enter restrictions
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2">Birthdate</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group date" id="datetimepicker1">
+                                        <input id="birthdate" birth-day type="text" name="birthdate" 
+                                            class="form-control" ng-model="kidData.birthdate" readonly="true" required/>
+                                        <span class="input-group-addon">
+                                            <span id="span" class="glyphicon-calendar glyphicon"></span>
+                                        </span>
+                                    </div>
+                                    <p class="errors" ng-show="(kidForm.birthdate.$touched || submitted) && kidForm.birthdate.$invalid">
+                                        Please select a birthdate
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group" ng-class="{ 'has-error' : (kidForm.birthdate.$touched || submitted) && kidForm.birthdate.$invalid }">
+                                <label class="col-sm-2">Birthdate*</label>
+                                <div class="col-sm-10">
+                                    <input birth-date-picker id="datepicker" class="form-control" name="birthdate" type="text" ng-model="kidData.birthdate"
+                                        ng-change="checkMe(kidData)" readonly='true' required />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon-calendar glyphicon"></span>
+                                        </span>
+                                    <p class="errors" ng-show="(kidForm.birthdate.$touched || submitted) && kidForm.birthdate.$invalid">
+                                        Please select a birthdate
+                                    </p>
+                                </div> 
+                            </div> -->
+                            <div class="form-group" ng-if="!editKid">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                                    <button ng-disabled="saved" type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="editKid">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button ng-disabled="saved" ng-click="update(kidData)" class="btn btn-primary" type="button">Update changes</button>
+                                    <button ng-disabled="saved" type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( function() {
+        if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+            var datepicker = $.fn.datepicker.noConflict();
+            $.fn.bootstrapDP = datepicker;
+        }
+        $("#birthdate").datepicker({
+            maxDate: '-5y',
+            changeYear: true,
+            // changeMonth: true,
+            yearRange: '-25y: maxDate',
+            showOn: "focus"
+        });
+        //$('#bootstrap-datepicker').bootstrapDP({});
+
+        $('#span').on('click', function() {
+            $('#birthdate').focus()
+        })
+    });
+</script>

@@ -1,0 +1,42 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Location</h5>
+                    <br><br>
+                </div>
+                <div class="ibox-content">
+                    <form id="location_form" name="locationForm" class="form-horizontal" role="form" ng-submit="submit(locationData)" novalidate>
+                        <div class="form-group" ng-class="{'has-error': (locationForm.Name.$touched || submitted) && locationForm.Name.$invalid}">
+                            <label class="col-sm-2">Address*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="Name" type="text" ng-model="locationData.address" maxlength="15" 
+                                 minlength="5" required>
+                                <p class="errors" ng-show="(locationForm.Name.$touched || submitted) && locationForm.Name.$error.required">
+                                    Please enter address
+                                </p>
+                                <p class="errors" ng-show="locationForm.Name.$error.minlength">
+                                    Length should be greater than or equalto 5
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!editLocation">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                                <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="editLocation">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="update(locationData)">Update</button>
+                                <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        

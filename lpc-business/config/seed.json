@@ -1,0 +1,239 @@
+{
+    "user": [
+        {
+            "email": "admin@admin.com",
+            "password": "admin@123",
+            "username": "admin",
+            "role_id": 0
+        }
+    ],
+    "customer": [
+        {
+            "firstname": "Test",
+            "lastname": "Test2",
+            "contact": "7878787878",
+            "email": "test@test.com",
+            "password": "test@123",
+            "street_address": "Test Street",
+            "city": "Test city",
+            "state": "Test state",
+            "zip": "380025",
+            "status": "active"
+        },
+        {
+            "firstname": "Ishaque",
+            "lastname": "Mev",
+            "contact": "7878000000",
+            "email": "ishaqueahmed.mev@iflair.com",
+            "password": "ishaque@123",
+            "street_address": "Baker Street",
+            "city": "test city",
+            "state": "test state",
+            "zip": "400001",
+            "status": "active"
+        }
+    ],
+    "business" : [
+        {
+            "firstname": "Palmer",
+            "lastname": "Technologies",
+            "email": "palmer@tech.com",
+            "password": "palmer@123",
+            "contact": 7878787878,
+            "street_address": "Test",
+            "state": "test state",
+            "city": "test city",
+            "zip": "400001",
+            "business_description": "This is the first business",
+            "special_events": [
+                "Birthdays"
+            ],
+            "services_offered": [
+                "Classes", "Holiday Classes"
+            ],
+            "cover_photo": "1509965053960.png",
+            "status": "inactive"
+        },
+        {
+            "firstname": "Queen",
+            "lastname": "Consolidate",
+            "email": "queen@console.com",
+            "password": "queen@123",
+            "contact": 7878087870,
+            "street_address": "Test",
+            "state": "test state",
+            "city": "test city",
+            "zip": "400002",
+            "business_description": "This is the second business",
+            "special_events": [
+                "Birthdays"
+            ],
+            "services_offered": [
+                "Classes"
+            ],
+            "cover_photo": "1509965053960.png",
+            "status": "active"
+        },
+        {
+            "firstname": "Star",
+            "lastname": "Labs",
+            "email": "star@labs.com",
+            "password": "star@123",
+            "contact": 7858787875,
+            "street_address": "Test",
+            "state": "test state",
+            "city": "test city",
+            "zip": "400011",
+            "business_description": "This is the third business",
+            "special_events": [
+                "Birthdays"
+            ],
+            "services_offered": [
+                "Classes", "Holiday Classes"
+            ],
+            "cover_photo": "1509965053960.png",
+            "status": "inactive"
+        }
+    ],
+    "service": [
+        {
+            "title": "This is the first service",
+            "description": "This is the first description",
+            "status": "active"
+        },
+        {
+            "title": "This is the second service",
+            "description": "This is the second description",
+            "status": "inactive"
+        }
+    ],
+    "event": [
+        {
+            "title": "This is the first event",
+            "description": "This is the first event description",
+            "status": "active"
+        },
+        {
+            "title": "This is the second event",
+            "description": "This is the second event description",
+            "status": "inactive"
+        }
+    ],
+    "class": [
+        {
+            "business_name": "Star Labs",
+            "date": "10/09/2017",
+            "time_from": "10:00am",
+            "time_to": "1.00pm",
+            "class_name": "Star labs class",
+            "instruction": "This is an immportant instruction",
+            "location": "Star City",
+            "duplicate": "Weekly",
+            "copies": "5",
+            "price": "1500",
+            "week": "2 Weeks",
+            "day": [
+                "Sunday", "Monday", "Friday", "Saturday"
+            ],
+            "status": "inactive"
+        },
+        {
+            "business_name": "Palmer Technologies",
+            "date": "09/09/2017",
+            "time_from": "12:30pm",
+            "time_to": "1.00am",
+            "class_name": "Palmer Technology class",
+            "instruction": "This is an important instruction",
+            "location": "Star City",
+            "duplicate": "None",
+            "copies": "5",
+            "price": "1500",
+            "day": [],
+            "status": "active"
+        }
+    ],
+    "package": [
+        {
+            "package_name": "Package 001",
+            "discount": "50",
+            "status": "inactive",
+            "date": "10/07/2017",
+            "_classId": []
+        },
+        {
+            "package_name": "Package 002",
+            "discount": "70",
+            "status": "active",
+            "date": "12/07/2017",
+            "_classId": []
+        },
+        {
+            "package_name": "Package 003",
+            "discount": "90",
+            "status": "inactive",
+            "date": "10/09/2017",
+            "_classId": []
+        }
+    ],
+    "cms": [
+        {
+            "title": "About us",
+            "url": "about us",
+            "description": "<h1>This is an about page</h1>",
+            "meta_title": "Meta title",
+            "meta_keywords": "Meta keyword",
+            "meta_description": "Meta description",
+            "status": "active",
+            "updated_on": "09/09/2017"
+        }
+    ],
+    "banner": [
+        {
+            "title": "Banner 001",
+            "description": "This description is for first banner",
+            "image": "1509962191283.png"
+        },
+        {
+            "title": "Banner 002",
+            "description": "This description is for second banner",
+            "image": "1509962191283.png"
+        }
+    ],
+    "faq": [
+        {
+            "type": "Customer",
+            "question": "Are you afraid of death ??",
+            "answer": "Why? Don't you"
+        },
+        {
+            "type": "Business",
+            "question": "Would you die for me ???",
+            "answer": "Would you live for me ???"
+        }
+    ],
+    "email": [
+        {
+            "title": "First email",
+            "subject": "Registration email",
+            "content": "<b>Registration content</b>",
+            "admin_content": "<h1>Content for admin</h1>"
+        }
+    ],
+    "blog": [
+        {
+            "title": "First blog",
+            "image": "1509962191283.png",
+            "description": "This is the first blog"
+        },
+        {
+            "title": "Second blog",
+            "image": "1509962191283.png",
+            "description": "This is the second blog"
+        },
+        {
+            "title": "Third blog",
+            "image": "1509962191283.png",
+            "description": "This is the third blog"
+        }
+    ]
+}

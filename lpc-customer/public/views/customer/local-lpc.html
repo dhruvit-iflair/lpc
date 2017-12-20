@@ -1,0 +1,171 @@
+<style>
+    #map {
+        width: 100%;
+        height: 200px;
+        background-color: grey;
+    }
+</style>
+<br><br>
+
+<div class="container">
+    <div class="banner-content">
+        <div class="CoverImage FlexEmbed FlexEmbed--3by1">
+            <img src="http://192.168.1.50:7575/upload/{{businessUser.cover_photo}}" alt="">
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <div class="">
+                <h5>Overview</h5>
+            </div>
+            <div>
+                Hello from me Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me 
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="map" map_data-tap-disabled="true"></div>
+            <br>
+        </div>        
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Classes</h5>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr ng-if="classes.length > 0">
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Class</th>
+                        <th>Offered By</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                    <h5 ng-if="classes.length == 0">
+                        <u>No classes added or all are already signed-up</u>
+                    </h5>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="classes in classes">
+                        <td>{{ classes.date | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ classes.time_from }} &nbsp; to &nbsp; {{ classes.time_to }} </td>
+                        <td>{{ classes.class_name }}</td>
+                        <td>
+                            <!-- <a style="color: blue" ng-click="goToLocal(classes)"> -->
+                                {{classes._businessId.firstname}} {{classes._businessId.lastname}}
+                            <!-- </a>     -->
+                        </td>
+                        <td>{{ classes.location.address }}</td>
+                        <td>
+                            <button ng-click="classSignUp(classes)" class="btn btn-primary" style="color: black; background-color: #ffffff" type="button">Sign Up</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <h3>Book a special event</h3>
+        Hello from me Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me  Hello from me 
+    </div>
+</div>
+
+<!-- image slider -->
+    <div class="image-blocks">
+    <div class="container">
+        <div class="image-slider cf">
+            <div class="image-block" ng-repeat="photos in photos.photos track by $index">
+                <img style="width: 100%; height: 225px" ng-src="http://192.168.1.50:7575/upload/{{photos}}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-10">
+        <h3>Contact us</h3>
+        <div class="ibox-content">
+            <form id="kid_form" name="kidForm" class="form-horizontal" role="form" ng-submit="submit(kidData)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : (kidForm.Firstname.$touched || submitted) && kidForm.Firstname.$invalid }">
+                    <label class="col-sm-2">First Name</label>
+                    <div class="col-sm-10">
+                        <input id="kid_firstname" class="form-control" name="Firstname" type="text" ng-model="kidData.firstname" maxlength="15" ng-trim="false" letter-length required>
+                        <!-- <p class="errors" ng-show="(kidForm.Firstname.$touched || submitted) && kidForm.Firstname.$invalid">
+                            Please enter first name
+                        </p> -->
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : (kidForm.Lastname.$touched || submitted) && kidForm.Lastname.$invalid }">
+                    <label class="col-sm-2">Last Name</label>
+                    <div class="col-sm-10">
+                        <input id="kid_lastname" class="form-control" name="Lastname" type="text" ng-model="kidData.lastname"  maxlength="15" ng-trim="false" letter-length required>
+                        <!-- <p class="errors" ng-show="(kidForm.Lastname.$touched || submitted) && kidForm.Lastname.$invalid">
+                            Please enter last name
+                        </p> -->
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : (customerForm.Email.$touched || submitted) && customerForm.Email.$invalid }">
+                    <label class="col-sm-2">Email Address</label>
+                    <div class="col-sm-10">
+                        <input id="customer_email" class="form-control" name="Email" type="email" ng-model="customerData.email" 
+                        ng-pattern="/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/" ng-trim="false" required>
+                            <label id="email_error"></label>
+                        <!-- <p class="errors" ng-show="(customerForm.Email.$touched || submitted) && customerForm.Email.$error.required">
+                            Please enter email address
+                        </p>
+                        <p class="errors" ng-show="customerForm.Email.$error.pattern">
+                            Please enter valid email address
+                        </p> -->
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : (classForm.Businessname.$touched || submitted) && classForm.Businessname.$invalid }">
+                    <label class="col-sm-2">Message Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="Businessname" ng-model="classData._businessId" required>
+                            <!-- <option value="">Select Business Name</option> -->
+                            <option value="">General</option>
+                            <option value="">Booking a Special Event</option>
+                            <option value="">Question about classes</option>
+                        </select>
+                        <!-- <p class="errors" ng-show="(classForm.Businessname.$touched || submitted) && classForm.Businessname.$invalid">
+                            Please select business name
+                        </p> -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2">Message</label>
+                    <div class="col-sm-10">
+                        <textarea cols="5" rows="5" birth-day type="text" name="birthdate" 
+                            class="form-control" ng-model="kidData.birthdate" required/>
+                        </textarea>
+                        <!-- <p class="errors" ng-show="(kidForm.birthdate.$touched || submitted) && kidForm.birthdate.$invalid">
+                            Please select a birthdate
+                        </p> -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <button ng-disabled="saved" class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

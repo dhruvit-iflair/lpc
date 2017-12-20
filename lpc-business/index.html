@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="inspinia">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="img/logo.png">
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css" />
+    
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+    <link href="css/angular-confirm.css" rel="stylesheet">
+    <link href="css/angular-toastr.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/ico" href="images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans:700" rel="stylesheet">
+    <link href="fonts/user-fonts.css" rel="stylesheet" />
+    <link href="css/slick.css" rel="stylesheet" />
+    <link href="css/jquery.mmenu.all.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+    
+</head>
+<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
+    <div ui-view></div>
+
+    <script src="js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/jquery/jquery.easing.min.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/inspinia.js"></script>
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="js/ui-router/angular-ui-router.min.js"></script>
+    <script src="js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+    <script src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+    <script src="js/bootstrap/bootstrap-datepicker.min.js"></script>
+    <script src="js/jquery/moment.min.js"></script>
+    <script src="js/jquery/summernote.js"></script>
+    <script src="js/angular/angular-summernote.js"></script>
+    <script src="js/jquery/datepair.min.js"></script>
+    <script src="js/jquery/jquery.datepair.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+    <script src="js/angular-confirm.js"></script>
+    <script src="js/angular/angular-sanitize.min.js"></script>
+    <script src="js/angular/angular-animate.min.js"></script>
+    <script src="js/angular/angular-toastr.tpls.js"></script>
+    <script src="js/angular/ui-router-styles.js"></script>
+    <script src="js/placeholder.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.mmenu.min.js"></script>
+    <script src="js/scripts.js"></script>
+    
+    <!-- Anglar App Script -->
+    <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/authInterceptor.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/controllers/admin/login-controller.js"></script>
+    <script src="js/controllers/admin/add-customer-controller.js"></script>
+    <script src="js/controllers/admin/customer-list-controller.js"></script>
+    <script src="js/controllers/admin/add-business-controller.js"></script>
+    <script src="js/controllers/admin/business-list-controller.js"></script>
+    <script src="js/controllers/admin/add-service-controller.js"></script>
+    <script src="js/controllers/admin/service-list-controller.js"></script>
+    <script src="js/controllers/admin/add-event-controller.js"></script>
+    <script src="js/controllers/admin/event-list-controller.js"></script>
+    <script src="js/controllers/admin/add-class-controller.js"></script>
+    <script src="js/controllers/admin/class-list-controller.js"></script>
+    <script src="js/controllers/admin/add-package-controller.js"></script>
+    <script src="js/controllers/admin/package-list-controller.js"></script>
+    <script src="js/controllers/admin/add-cms-controller.js"></script>
+    <script src="js/controllers/admin/cms-list-controller.js"></script>
+    <script src="js/controllers/admin/add-banner-controller.js"></script>
+    <script src="js/controllers/admin/banner-list-controller.js"></script>
+    <script src="js/controllers/admin/add-faq-controller.js"></script>
+    <script src="js/controllers/admin/faq-list-controller.js"></script>
+    <script src="js/controllers/admin/add-email-controller.js"></script>
+    <script src="js/controllers/admin/email-list-controller.js"></script>
+    <script src="js/controllers/admin/add-blog-controller.js"></script>
+    <script src="js/controllers/admin/blog-list-controller.js"></script>
+    <script src="js/controllers/user/home-controller.js"></script>
+    <script src="js/controllers/user/register-controller.js"></script>
+    <script src="js/controllers/user/cms-controller.js"></script>
+    <script src="js/controllers/user/top-controller.js"></script>
+    <script src="js/controllers/user/footer-controller.js"></script>
+    <script src="js/controllers/user/profile-controller.js"></script>
+    <script src="js/controllers/user/user-class-controller.js"></script>
+    <script src="js/controllers/business/business-class-controller.js"></script>
+    <script src="js/controllers/business/business-class-list-controller.js"></script>
+    <script src="js/controllers/business/business-package-controller.js"></script>
+    <script src="js/controllers/business/business-package-list-controller.js"></script>
+    <script src="js/controllers/business/business-profile-controller.js"></script>
+    <script src="js/controllers/business/business-location-controller.js"></script>
+    <script src="js/controllers/business/business-location-list-controller.js"></script>
+    <script src="js/controllers/business/business-photo-controller.js"></script>
+    <script src="js/controllers/business/business-payout-controller.js"></script>
+
+</body>
+</html>

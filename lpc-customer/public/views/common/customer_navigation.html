@@ -1,0 +1,32 @@
+<style>
+    body, .navbar-static-side {
+        background-color: #FAE586;
+    }
+</style>
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <p class="nav-header" style="font-size: 20px; margin-bottom: 0">
+            <strong>My Account</strong>
+        </p>
+        <ul side-navigation class="nav metismenu" id="side-menu" style="margin-right: 15px">
+            <li ng-class="{active: $state.includes('user.cust')}">
+                <li ui-sref-active="active"><a ui-sref="user.cust.class">My Classes</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.cust')}">
+                <li ui-sref-active="active"><a ui-sref="user.cust.profile">My Profile</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.cust')}">
+                <li ui-sref-active="active"><a ui-sref="user.cust.kidlist">My Kids</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('cust')}">
+                <li ui-sref-active="active"><a ui-sref="cust.location">Notification Settings</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.cust')}">
+                <li ui-sref-active="active"><a ui-sref="user.cust.paymentlist">Payment Methods</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('cust')}">
+                <li ui-sref-active="active"><a ui-sref="cust.payout">Transaction History</a></li>
+            </li>
+        </ul>
+    </div>
+</nav>

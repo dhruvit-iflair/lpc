@@ -1,0 +1,38 @@
+<style>
+    body, .navbar-static-side {
+        background-color: #FAE586;
+    }
+</style>
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <p class="nav-header" style="font-size: 20px; margin-bottom: 0">
+            <strong>My Business</strong>
+        </p>
+        <ul side-navigation class="nav metismenu" id="side-menu" style="margin-right: 15px">
+            <li ng-class="{active: $state.includes('user.buss')}">
+                <li ui-sref-active="active"><a ui-sref="user.buss.classlist">Class</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.buss')}">
+                <li ui-sref-active="active"><a ui-sref="user.buss.packagelist">Package</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.buss')}">
+                <li ui-sref-active="active"><a ui-sref="user.buss.profile">Profile</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.buss')}">
+                <li ui-sref-active="active"><a ui-sref="user.buss.photo">Photos</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('buss')}">
+                <li ui-sref-active="active"><a ui-sref="user.buss.locationlist">Class Locations</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('buss')}">
+                <li ui-sref-active="active"><a ui-sref="buss.payments">Customer Payments</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('user.buss')}">
+                <li ui-sref-active="active"><a ui-sref="user.buss.payout">Payout Settings</a></li>
+            </li>
+            <li ng-class="{active: $state.includes('buss')}">
+                <li ui-sref-active="active"><a ui-sref="buss.licensee">Licensee Description</a></li>
+            </li>
+        </ul>
+    </div>
+</nav>

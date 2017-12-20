@@ -1,0 +1,41 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Package List</h5>
+                    <div style="float: right; margin-top: -10px">
+                        <button type="button" ui-sref="user.buss.package" class="btn btn-primary block m-b">Add Package</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Class Count</th>
+                                    <th>Orders</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="packages in packages | orderBy: 'start_date'">
+                                    <td>{{ packages.start_date | date: 'dd-MM-yyyy'}}</td>
+                                    <td>{{ packages.package_name }} ({{packages.discount}}% discount)</td>
+                                    <td>{{ packages._classId.length }}</td>
+                                    <td>4</td>
+                                    <td>
+                                        <a ng-click="editBussPackage($index)"><i class="fa fa-pencil"></i></a>
+                                        <a ng-click="delete($index)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

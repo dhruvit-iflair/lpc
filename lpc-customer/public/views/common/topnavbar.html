@@ -1,0 +1,69 @@
+<header ng-controller="topCtrl" style="background-color: #FFFFFF">
+    <div class="header-top text-right" ng-if="loggedIn">
+        <div class="container cf">                    
+            <div class="user-acc">
+                <div class="logged-in">
+                    <div class="user-block">
+                        <div class="user-icon">
+                            <i class=""><img src="img/userimage.svg" alt=""></i>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;
+                        <span ng-if="!loggedIn"> <!-- Not needed though -->
+                            <a style="color: #ffffff" ng-click="userLogin()">Login</a>
+                        </span>
+                        <span class= "dropdown">
+                            <span data-toggle="dropdown" class="user-name">
+                                <a href="#"><span>{{customer}}</span></a>
+                            </span>
+                            <ul class="dropdown-menu" style="color:black">
+                                <li><a href="#">First one</a></li>
+                                <li><a href="#">Second two</a></li>
+                                <li><a ng-click="logout()">Logout</a></li>
+                            </ul>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="my-classes">
+                <p>My Next Booked Class: This Friday at 6pm <a href="#">My Classes</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-main">
+        <div class="container cf">
+            <div class="logo">
+                <a href="#">
+                    <img src="img/logo.png" alt="">
+                </a>
+            </div>
+            <div class="header-right"  ng-show="!roleBusiness">
+                <a class="mobile-nav-button menu-bt sb-toggle-right" id="nav-icon1" href="#menu">
+                    <div class="menu-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+                <div>
+                    <nav class="menu-navigation">
+                        <ul class="menu">
+                            <li ng-class="{active: $state.includes('user.default')}"><a href="/default" >Home</a></li>
+                            <li ng-class="{active: $state.includes('user.class')}"><a href="/class">Classes</a></li>
+                            <li ng-class="{active: $state.includes('user.event')}"><a href="/event">Special Events</a></li>
+                            <li ng-class="{active: $state.includes('user.about')}"><a href="/about">About</a></li>
+                            <li ng-class="{active: $state.includes('user.contact')}"><a href="/contact">Contact</a></li>
+                            <li><a href="#store">Store</a></li>
+                        </ul>
+                    </nav>
+                    <div class="my-account" ng-if="loggedIn">
+                        <a ui-sref="user.cust.class">My account</a>
+                    </div>
+                    <div class="my-account" ng-if="!loggedIn">
+                        <a ui-sref="login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

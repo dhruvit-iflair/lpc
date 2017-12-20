@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="inspinia">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="img/logo.png">
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css" />
+    
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+    <link href="css/angular-confirm.css" rel="stylesheet">
+    <link href="css/angular-toastr.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/ico" href="images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans:700" rel="stylesheet">
+    <link href="fonts/user-fonts.css" rel="stylesheet" />
+    <link href="css/slick.css" rel="stylesheet" />
+    <link href="css/jquery.mmenu.all.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
+    
+</head>
+<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
+    <div ui-view></div>
+    <noscript>
+        <div>You need Javascript enabled to use this site</div>
+    </noscript>
+    <script src="js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/jquery/jquery.easing.min.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/inspinia.js"></script>
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="js/ui-router/angular-ui-router.min.js"></script>
+    <script src="js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+    <script src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+    <script src="js/bootstrap/bootstrap-datepicker.min.js"></script>
+    <script src="js/jquery/moment.min.js"></script>
+    <script src="js/jquery/summernote.js"></script>
+    <script src="js/angular/angular-summernote.js"></script>
+    <script src="js/jquery/datepair.min.js"></script>
+    <script src="js/jquery/jquery.datepair.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+    <script src="js/angular-confirm.js"></script>
+    <script src="js/angular/angular-sanitize.min.js"></script>
+    <script src="js/angular/angular-animate.min.js"></script>
+    <script src="js/angular/angular-toastr.tpls.js"></script>
+    <script src="js/angular/ui-router-styles.js"></script>
+    <script src="js/placeholder.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.mmenu.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNCm7XA-mooRzQ0qNGh55pKcTnEJ16xnk&libraries=places,geometry"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <script src="js/angular-load.min.js"></script>    
+    <!-- <script src="https://js.stripe.com/v2/"></script>
+    <script>
+      Stripe.setPublishableKey('pk_test_Rn8UoYskhR52FUCwRVVsnA6D');
+    </script>  -->
+    <!-- <script src="js/angular/angular-payments.js"></script> -->
+    
+    <!-- <script>
+        window.Stripe('pk_test_Rn8UoYskhR52FUCwRVVsnA6D');
+    </script>  -->
+    <script src="js/angular/angular-payments.js"></script>
+    
+
+    <!-- <script>
+        Stripe.setPublishableKey('pk_test_WJtbVCYgAug1F2FLBetlecXq');
+    </script> 
+    
+    <!-- Anglar App Script -->
+    <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/authInterceptor.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/controllers/user/login-controller.js"></script>
+    <script src="js/controllers/user/home-controller.js"></script>
+    <script src="js/controllers/user/register-controller.js"></script>
+    <script src="js/controllers/user/cms-controller.js"></script>
+    <script src="js/controllers/user/top-controller.js"></script>
+    <script src="js/controllers/user/footer-controller.js"></script>
+    <script src="js/controllers/user/user-class-controller.js"></script>
+    <script src="js/controllers/user/user-package-classes-controller.js"></script>
+    <script src="js/controllers/customer/customer-class-controller.js"></script>
+    <script src="js/controllers/customer/customer-profile-controller.js"></script>
+    <script src="js/controllers/customer/customer-kid-controller.js"></script>
+    <script src="js/controllers/customer/customer-kid-list-controller.js"></script>
+    <script src="js/controllers/user/customer-class-signup-controller.js"></script>
+    <script src="js/controllers/user/customer-class-signup2-controller.js"></script>
+    <script src="js/controllers/customer/local-lpc-controller.js"></script>
+    <script src="js/controllers/customer/payment-controller.js"></script>
+    
+</body>
+</html>

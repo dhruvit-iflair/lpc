@@ -1,0 +1,93 @@
+<style>
+    .my-input {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    ::-webkit-input-placeholder {
+        color: #ccc;
+    }   
+</style>
+       
+    
+<br>
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="col-lg-12">
+            <div class="col-md-12">
+                <h1 style="font-family: Arial, Helvetica, sans-serif">
+                    Make Payment
+                </h1>
+            </div>
+            <br/>
+            <div class="col-md-12" ng-if="!show">
+                <form class="form-group" name="payForm" role="form" id="payment-form" ng-submit="save(inp)" novalidate>
+                    <div class="form-row">
+                        <label for="card-element">
+                            Credit or debit card
+                        </label>
+                        <br/><br/>
+                        
+                        <label >
+                            <input ng-model="inp.cardname" class="my-input" name="cardholder-name" class="field is-empty" placeholder="Card holder name" required/>
+                        </label>
+
+                        <br/><br/>
+                        <div class="my-input" id="card-element" ng-model="inp.cards" ></div>
+                        <br/>
+
+                        <div id="card-errors" role="alert"></div>
+
+                        <label>
+                            <input ng-model="inp.checked" ng-init="inp.checked=false" type="checkbox"> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="submit" value="Submit Payment">
+                        Submit Payment
+                    </button>
+                    <button type="button" ng-click="($state.go('user.class'))">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-12" ng-if="show">
+                <form class="form-group" name="payForm" role="form" id="payment-form" novalidate>
+                    <div class="form-row">
+                        <label> {{customerCards.length}} saved cards available </label><br/>
+                        <br/>
+                        <div>
+                            <table class="table">
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td><strong>Card Number</strong></td>
+                                </tr>
+                                <tr ng-repeat="cards in customerCards track by $index">
+                                    <td>
+                                        <label>
+                                            <p name="cardholder-name" class="field is-empty">
+                                                {{cards.name}}
+                                            </p>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <p id="card-element" ng-model="inpa.cards" >
+                                            **** **** **** {{cards.last4}} <a ng-click="removeCard(cards)">(Remove)</a>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" ng-click="savedCard(cards)" value="Submit Payment">
+                                            Submit Payment
+                                        </button>
+                                        <a ng-click="($state.go('user.class'))">Cancel</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- <label>
+                                <input ng-model="selected" ng-click="useAnother(selected)" type="checkbox"> Use another
+                            </label> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

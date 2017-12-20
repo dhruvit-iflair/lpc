@@ -1,0 +1,87 @@
+<style>
+    body {
+        background-color: #f3f3f4
+    }
+</style>
+
+<div class="container" ng-controller="registerCtrl">
+    <div class="middle-box text-center registerscreen animated fadeInDown">
+        <!-- <p>Login to LPC</p> -->
+        <form id="profile_form" name="profileForm" class="m-t" role="form" ng-submit="profile(profileData)" novalidate>
+            <div class="form-group">
+                <input type="file" class="file" id="fileId" accept="image/*" file-model="myFiles($files)"
+                    onchange="PreviewImage()" style="display: none">
+                <div class="input-group col-xs-12">
+                    <input type="text" id="uploadTxt" class="form-control" placeholder="Cover Photo" disabled>
+                    <span class="input-group-btn">
+                        <button id="uploadBtn" class="browse btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i>Select Image</button>
+                    </span>
+                </div>
+                <label class="errors" ng-if="imageError">
+                    Please select cover photo
+                </label>
+                <!-- <div class="col-sm-2">
+                    <img id="image" style="width: 55px; border-radius: 50%;float: right;margin-top: -2%"/>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <label class="col-sm-5" style="margin-left: -18px">Services offered: </label>
+                <label class="radio-inline"  ng-repeat="services in services">
+                <input type="checkbox" name="Services" value="{{services.title}}"
+                    ng-model="services.selected" ng-click="toggleService(services.title)">
+                    {{services.title}}
+                </label>
+                <label class="radio-inline errors" ng-if="serviceError">
+                    Please select atleast one service
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-5" style="margin-left: -21px">Events offered : </label>
+                <label class="radio-inline" style="float: left; margin-left: 8px" ng-repeat="events in events">
+                <input id="special_events" type="checkbox" name="Events"
+                    ng-model="events.checked" ng-click="toggleEvent(events.title)">
+                    {{events.title}}
+            </div>
+            <label class="radio-inline errors" ng-if="eventError">
+                Please select an event
+            </label><br><br>
+            <div class="form-group" ng-class="{ 'has-error' : (profileForm.Description.$touched || submitted) && profileForm.Description.$invalid }">
+                    <textarea rows="10" placeholder="Personal Business Description" class="form-control" name="Description" ng-model="profileData.business_description" maxlength="200" required></textarea>
+                    <label class="errors" ng-show="(profileForm.Description.$touched || submitted) && profileForm.Description.$invalid">
+                        Please enter business description
+                    </label>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
+            <button type="button" ng-click="cancel()" class="btn btn-primary block full-width m-b">Cancel</button>
+        </form>
+    </div>
+            
+        
+    </div>
+</div>
+
+<script>
+
+    document.getElementById('uploadBtn').addEventListener('click', function() {
+        document.getElementById('fileId').click();
+    })
+
+    document.getElementById('fileId').onchange = function() { 
+        document.getElementById('uploadTxt').value = this.value.split('\\').pop();
+    }
+
+    function PreviewImage() {
+        var file = event.target.files[0];
+        var oFReader = new FileReader();
+        oFReader.onload = function(oFREvent) {
+            var picFile = oFREvent.target;
+            var img = document.getElementById('image');
+            if(!file.type == "") {
+                img.src= picFile.result;
+            } else {
+                img.style.display = 'none'
+            }
+        }
+        oFReader.readAsDataURL(file);
+    }
+</script>

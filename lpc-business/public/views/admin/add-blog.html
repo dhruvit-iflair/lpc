@@ -1,0 +1,74 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{title}}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form id="blog_form" name="blogForm" class="form-horizontal" role="form" ng-submit="submit(blogData)" novalidate>
+                            <div class="form-group" ng-class="{ 'has-error' : (blogForm.Title.$touched || submitted) && blogForm.Title.$invalid }">
+                                <label class="col-sm-2">Title*</label>
+                                <div class="col-sm-10">
+                                    <input id="blog_Title" class="form-control" name="Title" type="text" ng-model="blogData.title" maxlength="15" ng-trim="false" letter-length required>
+                                    <p class="errors" ng-show="(blogForm.Title.$touched || submitted) && blogForm.Title.$invalid">
+                                        Please enter title
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2">Image*</label>
+                                <div class="col-sm-8">
+                                    <input type="file" id="fileId" accept="image/*" file-model="myFiles($files)" onchange="PreviewImage()">
+                                    <p class="errors" ng-if="imageError">
+                                        Please select image
+                                    </p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img id="image" style="width: 55px; border-radius: 50%;float: right;margin-top: -2%"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : (blogForm.Description.$touched || submitted) && blogForm.Description.$invalid }">
+                                <label class="col-sm-2">Description*</label>
+                                <div class="col-sm-10">
+                                    <textarea rows="10" class="form-control" name="Description" ng-model="blogData.description" maxlength="200" required></textarea>
+                                    <p class="errors" ng-show="(blogForm.Description.$touched || submitted) && blogForm.Description.$invalid">
+                                        Please enter description
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" ng-if="!editblog">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button ng-disabled="saved" class="btn btn-primary" type="submit">Save changes</button>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="editblog">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="update(blogData)">Update</button>
+                                    <button ng-disabled="saved" class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <script>
+        function PreviewImage() {
+                var file = event.target.files[0];
+                var oFReader = new FileReader();
+                oFReader.onload = function(oFREvent) {
+                    var picFile = oFREvent.target;
+                    var img = document.getElementById('image');
+                    if(!file.type == "") {
+                        img.src= picFile.result;
+                    } else {
+                        img.style.display = 'none'
+                    }
+                }
+                oFReader.readAsDataURL(file);
+        }
+    </script>
