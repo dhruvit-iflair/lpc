@@ -1,5 +1,5 @@
 angular.module('inspinia')
-.controller('businessPackageCtrl', function(toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
+.controller('businessPackageCtrl', function(env_var, toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
     
     $scope.packageData = {};
     $scope.editPackage = false;
@@ -9,7 +9,7 @@ angular.module('inspinia')
 
     getClass();
     function getClass() {
-        $http.get('/getUserClass/' + $rootScope.user._id)
+        $http.get(env_var.apiUrl + '/getUserClass/' + $rootScope.user._id)
             .then(function(res) {            
                 $scope.classData = [];
                 $scope.classDataId = [];
@@ -63,8 +63,7 @@ angular.module('inspinia')
                     }
                 }
             }
-            var startDate = new Date(Math.min.apply(null,$scope.allDates));        
-            console.log(startDate);    
+            var startDate = new Date(Math.min.apply(null,$scope.allDates));            
 
             var all = {
                 '_businessId': $rootScope.user._id,
@@ -74,7 +73,7 @@ angular.module('inspinia')
                 'start_date': startDate
             }
 
-            $http.post('/package', all)
+            $http.post(env_var.apiUrl + '/package', all)
                 .then(function(res) {
                     $scope.submitted = false
                     $scope.classError = false
@@ -96,7 +95,7 @@ angular.module('inspinia')
         $scope.checkSelection = []
         $scope.editPackage = true
         $scope.packageId = localStorage.getItem('packageId')
-        $http.get('/package/' + $scope.packageId)
+        $http.get(env_var.apiUrl + '/package/' + $scope.packageId)
             .then(function(res) {
                 $scope.classsData = [];
                 $scope.packageData = res.data;
@@ -138,7 +137,7 @@ angular.module('inspinia')
                 'start_date': startDate
             }
 
-            $http.put('/package/' +$scope.packageId, all)
+            $http.put(env_var.apiUrl + '/package/' +$scope.packageId, all)
                 .then(function(res) {
                     $scope.submitted = false
                     $scope.classError = false

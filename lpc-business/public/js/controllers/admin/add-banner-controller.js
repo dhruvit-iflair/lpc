@@ -1,6 +1,6 @@
 angular.module('inspinia')
 
-    .controller('addBannerCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addBannerCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         
         $scope.title = 'Add Banner';
         $scope.bannerData = {};
@@ -41,7 +41,7 @@ angular.module('inspinia')
                 $scope.imageError = false;
 
                 everyThing(bannerData);
-                $http.post('/banner', formData, {
+                $http.post(env_var.apiUrl + '/banner', formData, {
                     headers: {
                         'Content-Type': undefined
                     }
@@ -65,7 +65,7 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editBanner = true;
             $scope.title = 'Edit Banner'
-            $http.get('/banner/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/banner/' +$stateParams.id)
                 .then(function(res) {
                     $scope.bannerData = res.data;
                     document.getElementById('image').src = '/upload/' + res.data.image;
@@ -84,7 +84,7 @@ angular.module('inspinia')
                 $scope.imageError = false;
 
                 everyThing(bannerData);
-                $http.put('/banner/' +$stateParams.id, formData, {
+                $http.put(env_var.apiUrl + '/banner/' +$stateParams.id, formData, {
                     headers: {
                         'Content-Type': undefined
                     }

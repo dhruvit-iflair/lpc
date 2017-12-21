@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('businessProfileCtrl', function(toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
+    .controller('businessProfileCtrl', function(env_var, toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
         
         var id = $rootScope.user._id;
         $scope.profileData = {};
@@ -11,7 +11,7 @@ angular.module('inspinia')
             {id: 1, title: 'Birthdays'},
         ]
         
-        $http.get('/users/' + id)
+        $http.get(env_var.apiUrl + '/users/' + id)
             .then(function(res) {
                 if(res.data.role_id.title == 'business') {
                     $scope.business = true;
@@ -107,26 +107,26 @@ angular.module('inspinia')
                 }
 
                 everyThing(profileData);
-                $http.put('/users/' +id, formData, {
-                    headers: {
-                        'Content-Type': undefined
-                    }
-                })
-                .then(function(res) {
-                    $scope.saved = true;
-                    $scope.services_offered = [];
-                    $scope.submitted = false;
-                    document.getElementById('profile_form').reset();
-                    toastr.success('Data updated successfully');
-                    $timeout(function() {
-                        $state.go('user.home');
-                    }, 3000)
-                }, function(err) {
-                    toastr.error('Something went wrong', 'Error')
-                    formData.forEach(function(val ,key, fd) {
-                        formData.delete(key);
+                $http.put(env_var.apiUrl + '/users/' +id, formData, {
+                        headers: {
+                            'Content-Type': undefined
+                        }
                     })
-                })
+                    .then(function(res) {
+                        $scope.saved = true;
+                        $scope.services_offered = [];
+                        $scope.submitted = false;
+                        document.getElementById('profile_form').reset();
+                        toastr.success('Data updated successfully');
+                        $timeout(function() {
+                            $state.go('user.home');
+                        }, 3000)
+                    }, function(err) {
+                        toastr.error('Something went wrong', 'Error')
+                        formData.forEach(function(val ,key, fd) {
+                            formData.delete(key);
+                        })
+                    })
             }
         }
 

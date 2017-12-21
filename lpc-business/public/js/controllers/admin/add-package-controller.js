@@ -1,30 +1,19 @@
 angular.module('inspinia')
 
-    .controller('addPackageCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('addPackageCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         $scope.packageData = {};
         $scope.editPackage = false;
         $scope.title = 'Add Package';
         
         getClass();
         function getClass() {
-            $http.get('/class')
+            $http.get(env_var.apiUrl + '/class')
                 .then(function(res) {
-                    
                     $scope.classData = [];
                     $scope.classDataId = [];
                     for(var i= 0; i< res.data.length; i++) {
                         $scope.classData.push(res.data[i]);
                     }
-                    // for(var i= 0; i< res.data.length; i++) {
-                    //     $scope.classDataId.push(res.data[i]._id);
-                    // }
-
-                    // $scope.repeatData = $scope.classData.map(function(value, index) {
-                    //     return {
-                    //         data: value,
-                    //         value: $scope.classDataId[index]
-                    //     }
-                    // })
             })
         }
 
@@ -70,7 +59,7 @@ angular.module('inspinia')
                     '_classId': $scope._classId
                 }
 
-                $http.post('/package', all)
+                $http.post(env_var.apiUrl + '/package', all)
                     .then(function(res) {
                         $scope.submitted = false
                         $scope.classError = false
@@ -91,7 +80,7 @@ angular.module('inspinia')
             $scope._classIdU = [];
             $scope.title = 'Edit Package'
             $scope.editPackage = true;
-            $http.get('/package/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/package/' +$stateParams.id)
                 .then(function(res) {
                     $scope.classsData = [];
                     $scope.packageData = res.data;
@@ -121,7 +110,7 @@ angular.module('inspinia')
                     '_classId': $scope._classIdU
                 }
 
-                $http.put('/package/' +$stateParams.id, all)
+                $http.put(env_var.apiUrl + '/package/' +$stateParams.id, all)
                     .then(function(res) {
                         $scope.submitted = false
                         $scope.classError = false

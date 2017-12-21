@@ -1,6 +1,6 @@
 angular.module('inspinia')
 
-    .controller('addCustomerCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addCustomerCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
             
         $scope.customerData = {};
         $scope.editCustomer = false;
@@ -28,10 +28,8 @@ angular.module('inspinia')
             $scope.submitted = false;
             if(this.customerForm.$invalid) {
                 $scope.submitted = true;
-                //getMessages();
-                //customerData.$setViewValue(customerData.$dirty);
             } else {
-                $http.post('/customer', customerData)
+                $http.post(env_var.apiUrl + '/customer', customerData)
                     .then(function(res) {
                         if(res.data === 'Email already exists') {
                             //alert(res.data)
@@ -57,13 +55,13 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editCustomer = true;
             $scope.title = 'Edit Customer'
-            $http.get('http://192.168.1.50:7576/customer/' +$stateParams.id)
-            .then(function(res) {
-                $scope.customerData = res.data;
-                $scope.customerData.password = null;
-            }, function(err) {
-                console.log(err);
-            })
+            $http.get(env_var.apiUrl + '/customer/' +$stateParams.id)
+                .then(function(res) {
+                    $scope.customerData = res.data;
+                    $scope.customerData.password = null;
+                }, function(err) {
+                    console.log(err);
+                })
         }
 
         // Update customer on add-customer state
@@ -72,7 +70,7 @@ angular.module('inspinia')
             if(this.customerForm.$invalid) {
                 $scope.submitted = true
             } else {
-                $http.put('http://192.168.1.50:7576/customer/' +$stateParams.id, customerData)
+                $http.put(env_var.apiUrl + '/customer/' +$stateParams.id, customerData)
                     .then(function(res) {
                         $scope.saved = true;
                         $scope.submitted = false;

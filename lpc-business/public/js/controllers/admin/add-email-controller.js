@@ -1,9 +1,9 @@
 angular.module('inspinia')
-    .controller('addEmailCtrl', function($transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+    .controller('addEmailCtrl', function(env_var, $transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
     
         if($stateParams.id) {
             $scope.editEmail = true
-            $http.get('/email/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/email/' +$stateParams.id)
                 .then(function(res) {
                     $scope.emailData = res.data;
                     angular.element(document.querySelector('#content_summernote'))
@@ -30,7 +30,7 @@ angular.module('inspinia')
                 }
                 angular.merge(emailData, option)
 
-                $http.put('/email/' +$stateParams.id, emailData)
+                $http.put(env_var.apiUrl + '/email/' +$stateParams.id, emailData)
                     .then(function(res) {
                         $scope.submitted = false;
                         document.getElementById('email_form').reset();

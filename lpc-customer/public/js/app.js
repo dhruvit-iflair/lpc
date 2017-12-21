@@ -1,3 +1,8 @@
+var env = {}
+if(window) {
+    Object.assign(env, window.env_var);
+}
+
 (function () {
     angular.module('inspinia', [
         'ui.router',                    
@@ -11,6 +16,8 @@
         'angularPayments',
         // 'angular-stripe'
     ])
+
+    .constant('env_var', env)
     
     .run(function($transitions, $state, $rootScope, $location, $timeout) {  
         $transitions.onStart({},

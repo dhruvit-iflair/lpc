@@ -1,3 +1,8 @@
+var env = {}
+if(window) {
+    Object.assign(env, window.env_var);
+}
+
 (function () {
     angular.module('inspinia', [
         'ui.router',                    
@@ -9,6 +14,8 @@
         'uiRouterStyles'
     ])
     
+    .constant('env_var', env)
+   
     .run(function($transitions, $state, $rootScope, $location, $timeout) {  
         $transitions.onStart({},
           function($transition) {
@@ -49,26 +56,6 @@
             }
           });
     })
-    // .run(($transitions, $state) => {
-    //     $transitions.onError({}, ($transition) => {
-    //         console.log($transition.error());
-    //         return false;
-    //     })
-    // })
-    
-    // .factory('$exceptionHandler', function($log, ErrorService) {
-    //     return function(exception, cause) {
-    //       if (console) {
-    //         $log.error(exception);
-    //         $log.error(cause);
-    //       }
-    //       ErrorService.send(exception, cause);
-    //     };
-    // })
-
-    // .config(['$qProvider', function ($qProvider) {
-    //     $qProvider.errorOnUnhandledRejections(false)
-    // }]);
-
+  
 })();
 

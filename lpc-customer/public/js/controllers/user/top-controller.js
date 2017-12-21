@@ -1,7 +1,7 @@
 angular.module('inspinia')
-.controller('topCtrl', function($window, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
+.controller('topCtrl', function(env_var, $window, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
     
-    $http.get('http://192.168.1.50:7575/cms').then(function(res) {
+    $http.get(env_var.bizApiUrl + '/cms').then(function(res) {
         $scope.cms = res.data;
         $scope.cmsId = true;
     })

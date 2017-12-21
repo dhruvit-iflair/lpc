@@ -1,6 +1,6 @@
 angular.module('inspinia')
 
-    .controller('addBusinessCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addBusinessCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         
         $scope.title = 'Add Business';
         $scope.imageLength;
@@ -33,7 +33,7 @@ angular.module('inspinia')
         }
 
         if($stateParams.id) {
-            $http.get('/users/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/users/' +$stateParams.id)
                 .then(function(res) {
                     $scope.events_offering = res.data.special_events;
                     $scope.services_offering = res.data.services_offered
@@ -140,7 +140,7 @@ angular.module('inspinia')
                 }
 
                 everyThing(businessData);                
-                $http.post('/business', formData, {
+                $http.postenv_var.apiUrl + ('/business', formData, {
                     headers: {
                         'Content-Type': undefined
                         }
@@ -166,7 +166,7 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editBusiness = true;
             $scope.title = 'Edit Business'
-            $http.get('/users/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/users/' +$stateParams.id)
                 .then(function(res) {
                     $scope.businessData = res.data;
                     // console.log(res.data.services_offered);
@@ -200,7 +200,7 @@ angular.module('inspinia')
                 }
                    
                 everyThing(businessData);
-                $http.put('/users/' +$stateParams.id, formData, {
+                $http.put(env_var.apiUrl + '/users/' +$stateParams.id, formData, {
                     headers: {
                         'Content-Type': undefined
                         }

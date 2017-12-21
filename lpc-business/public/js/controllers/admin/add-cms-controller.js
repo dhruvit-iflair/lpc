@@ -1,10 +1,9 @@
 angular.module('inspinia')
-    .controller('addCMSCtrl', function($transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+    .controller('addCMSCtrl', function(env_var, $transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
         var to = $transition$.to();
         $scope.title = 'Edit CMS'
         if($stateParams.id) {
-            //$scope.editCMS = true
-            $http.get('/cms/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/cms/' +$stateParams.id)
                 .then(function(res) {
                     $scope.cmsData = res.data;
                     angular.element(document.querySelector('#summernote'))
@@ -25,7 +24,7 @@ angular.module('inspinia')
                 }
                 angular.merge(cmsData, option)
 
-                $http.put('/cms/' +$stateParams.id, cmsData)
+                $http.put(env_var.apiUrl + '/cms/' +$stateParams.id, cmsData)
                     .then(function(res) {
                         $scope.submitted = false;
                         document.getElementById('cms_form').reset();

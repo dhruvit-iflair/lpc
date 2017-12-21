@@ -1,11 +1,11 @@
 angular.module('inspinia')
 
-    .controller('businessClassCtrl', function(AuthInterceptor, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('businessClassCtrl', function(env_var, AuthInterceptor, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         $scope.classData = {};
         $scope.address = []
         var currentDate = new Date();
 
-        $http.get('/getAddressByUser/' +$rootScope.user._id)
+        $http.get(env_var.apiUrl + '/getAddressByUser/' +$rootScope.user._id)
             .then(function(res) {
                 for(var i= 0; i< res.data.length; i++) {
                     $scope.address.push({
@@ -133,7 +133,7 @@ angular.module('inspinia')
                 }
                 catchMeIfYouCan(classData);
                 var team = angular.merge(options, $scope.options2);
-                $http.post('/class', options)
+                $http.post(env_var.apiUrl + '/class', options)
                     .then(function(res) {
                         document.getElementById('class_form').reset();
                         $scope.submitted = false;
@@ -153,7 +153,7 @@ angular.module('inspinia')
             $scope.checkSelection = []
             $scope.editClass = true
             $scope.classId = localStorage.getItem('classId')
-            $http.get('/class/' + $scope.classId)
+            $http.get(env_var.apiUrl + '/class/' + $scope.classId)
                 .then(function(res) {
                     $scope.classData = res.data;
                     $scope.classData.date = moment(res.data.date).format('YYYY/MM/DD')
@@ -200,9 +200,8 @@ angular.module('inspinia')
                 }
                 catchMeIfYouCan(classData);
                 var team = angular.merge(options, $scope.options2);
-                $http.put('/class/' +$scope.classId, options)
+                $http.put(env_var.apiUrl + '/class/' +$scope.classId, options)
                     .then(function(res) {
-                        // $scope.editClass = false;
                         $scope.saved = true
                         $scope.submitted = false;
                         $scope.daysError = false;
@@ -214,7 +213,6 @@ angular.module('inspinia')
                         localStorage.removeItem('classId')
                     }, function(err) {
                         toastr.error('Something went wrong', 'Error')
-                        //console.log(err);
                     })
             }
         }

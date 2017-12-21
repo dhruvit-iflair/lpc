@@ -1,9 +1,9 @@
 angular.module('inspinia')
-    .controller('CMSListCtrl', function(DTOptionsBuilder, toastr, $scope, $rootScope, $state, $http) {
+    .controller('CMSListCtrl', function(env_var, DTOptionsBuilder, toastr, $scope, $rootScope, $state, $http) {
         
         getCMS();        
         function getCMS() {
-            $http.get('/cms')
+            $http.get(env_var.apiUrl + '/cms')
             .then(function(res) {
                 $scope.cms = res.data;       
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -31,7 +31,7 @@ angular.module('inspinia')
 
         $scope.updateStatus = function(index) {
             $scope.cmsId = $scope.cms[index]._id;
-            $http.put('/cmsStatus/' +$scope.cmsId)
+            $http.put(env_var.apiUrl + '/cmsStatus/' +$scope.cmsId)
                 .then(function(res) {
                     
                     if ($scope.cms[index].status == 'active') {

@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerKidCtrl', function(toastr, $scope, $state, $rootScope, $http, $timeout) {
+    .controller('customerKidCtrl', function(env_var, toastr, $scope, $state, $rootScope, $http, $timeout) {
         
         // localStorage.removeItem('addKid')
         $scope.kidData = {}
@@ -11,7 +11,7 @@ angular.module('inspinia')
                 $scope.saved = true;
                 kidData['_customerId'] = $rootScope.user._id;
                 
-                $http.post('/kid', kidData)
+                $http.post(env_var.apiUrl + '/kid', kidData)
                     .then(function(res) {
                         toastr.success('Kid added successfully');
                         
@@ -32,7 +32,7 @@ angular.module('inspinia')
             $scope.editKid = true;
             var id = localStorage.getItem('kidId');
 
-            $http.get('/kid/' +id)
+            $http.get(env_var.apiUrl + '/kid/' +id)
                 .then(function(res) {
                     $scope.kidData = res.data;
                     $scope.kidData.birthdate = moment($scope.kidData.birthdate).format('MM/DD/YYYY');
@@ -47,7 +47,7 @@ angular.module('inspinia')
             } else {
                 $scope.submitted = false;
                 $scope.saved = true;
-                $http.put('/kid/' +id, kidData)
+                $http.put(env_var.apiUrl + '/kid/' +id, kidData)
                     .then(function(res) {
                         $scope.editKid = false
                         toastr.success('Kid data updated successfully')

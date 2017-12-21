@@ -1,8 +1,8 @@
 angular.module('inspinia')
 
-    .controller('classListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('classListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
-        $http.get('/class')
+        $http.get(env_var.apiUrl + '/class')
             .then(function(res) {
                 $scope.class = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -29,7 +29,7 @@ angular.module('inspinia')
 
         $scope.updateStatus = function(index) {
             $scope.classId = $scope.class[index]._id;
-            $http.get('/classStatus/' +$scope.classId)
+            $http.get(env_var.apiUrl + '/classStatus/' +$scope.classId)
                 .then(function(res) {
                     
                     if ($scope.class[index].status == 'active') {
@@ -63,7 +63,7 @@ angular.module('inspinia')
                     text: 'Delete!',
                     btnClass: 'btn-red',
                     action: function(scope,rootScope, button) {
-                        $http.delete('/class/' +$scope.classId)
+                        $http.delete(env_var.apiUrl + '/class/' +$scope.classId)
                             .then(function(res) {
                                 $state.go('.', {}, {reload: true});
                             }, function(err) {

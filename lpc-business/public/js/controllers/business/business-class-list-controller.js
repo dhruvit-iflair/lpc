@@ -1,11 +1,11 @@
 angular.module('inspinia')
-    .controller('businessClassListCtrl', function($ngConfirm, $state, DTOptionsBuilder, $timeout, $scope, $rootScope, $http) {
+    .controller('businessClassListCtrl', function(env_var, $ngConfirm, $state, DTOptionsBuilder, $timeout, $scope, $rootScope, $http) {
         
         var url_string = window.location.href
         var url = new URL(url_string);
         
         if(url.search) {
-            $http.get('/oauth/callback', {params: 
+            $http.get(env_var.apiUrl + '/oauth/callback', {params: 
                 {id: $rootScope.user._id, email: $rootScope.user.email}} )
                     .then(function(res) {
                         alert(res.data)
@@ -28,7 +28,7 @@ angular.module('inspinia')
         $scope.dtInstance = {}; 
         getData()
         function getData() {       
-            $http.get('/getUserClass/' + $rootScope.user._id)
+            $http.get(env_var.apiUrl + '/getUserClass/' + $rootScope.user._id)
             .then(function(res) {
                 $scope.class = res.data;
                 $scope.dtOptions = {
@@ -47,12 +47,6 @@ angular.module('inspinia')
                         'no': a + ' ' + moment($scope.class[i].date).toDate().getFullYear(),
                         'month': monthNames[((a) - 1)] + ' ' + moment($scope.class[i].date).toDate().getFullYear()
                     })
-                    // $scope.months.push({
-                    //     'no':(moment($scope.class[i].date).toDate().getMonth() + 1) + ' ' +  
-                    //         moment($scope.class[i].date).toDate().getFullYear(),
-                    //     'month': monthNames[moment($scope.class[i].date).toDate().getMonth()] + ' ' +
-                    //                 moment($scope.class[i].date).toDate().getFullYear()
-                    // })
                 }
 
                 const me = Array.from(new Set($scope.m_months.map((item) => item.no)))
@@ -82,17 +76,7 @@ angular.module('inspinia')
                 console.log(err)
             })
         }
-        // for(var i = 0; i < 4; i++) {
-        //     $scope.months.push({
-        //         'no': (dates.getMonth() + 1) + ' ' + (dates.getFullYear()),
-        //         'month': monthNames[dates.getMonth()] + ' ' + dates.getFullYear()
-        //     });
-        //     // For month++
-        //     dates.setMonth(dates.getMonth() + 1, 1);
-        //     // dates.setFullYear(dates.getFullYear())
-        // }
-        
-
+      
         // Filter for ng-repeat to cope up with select box
         // $scope.selected is binded to $scope.months.no
         $scope.selectedMonthFilter = function(element) {
@@ -124,7 +108,7 @@ angular.module('inspinia')
                     text: 'Delete!',
                     btnClass: 'btn-red',
                     action: function(scope,rootScope, button) {
-                        $http.delete('/class/' +$scope.classId)
+                        $http.delete(env_var.apiUrl + '/class/' +$scope.classId)
                             .then(function(res) {
                                 $scope.months = [];
                                 getData()

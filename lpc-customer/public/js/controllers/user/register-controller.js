@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('registerCtrl', function(toastr, $stateParams, $scope, $state, $http, $location, $rootScope) {
+    .controller('registerCtrl', function(env_var, toastr, $stateParams, $scope, $state, $http, $location, $rootScope) {
         
         $scope.title = 'Register to LPC';
         $scope.registerData = {}
@@ -11,18 +11,18 @@ angular.module('inspinia')
             }
             else {
                 $scope.submitted = false;
-                $http.post('/customer', registerData)
-                .then(function(res) {
-                    if(res.data === 'Email already exists') {
-                        toastr.error(res.data, 'Error')
-                    } else {
-                        alert('Successfully registered, now please login')
-                        $state.go('login');
-                        document.getElementById('regForm').reset();
-                    }
-                }, function(err) {
-                    console.log(err)
-                })
+                $http.post(env_var.apiUrl + '/customer', registerData)
+                    .then(function(res) {
+                        if(res.data === 'Email already exists') {
+                            toastr.error(res.data, 'Error')
+                        } else {
+                            alert('Successfully registered, now please login')
+                            $state.go('login');
+                            document.getElementById('regForm').reset();
+                        }
+                    }, function(err) {
+                        console.log(err)
+                    })
             }
         }
 

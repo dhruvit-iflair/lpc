@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('profileCtrl', function($timeout, toastr, $state, $scope, $http, $rootScope) {
+    .controller('profileCtrl', function(env_var, $timeout, toastr, $state, $scope, $http, $rootScope) {
         var id = $rootScope.user._id;
         $scope.profileData = {};
         $rootScope.services = [
@@ -10,18 +10,18 @@ angular.module('inspinia')
             {id: 1, title: 'Birthdays'},
         ]
         
-        $http.get('/users/' + id)
-         .then(function(res) {
-            if(res.data.role_id.title == 'business') {
-                $scope.business = true;
-            }
-            $scope.profileData = res.data;
-            $scope.profileData.password = null;
-            $scope.events_offered = res.data.special_events;
-            $scope.services_offered = res.data.services_offered
-         }, function(err) {
-             console.log(err)
-        })
+        $http.get(env_var.apiUrl + '/users/' + id)
+            .then(function(res) {
+                if(res.data.role_id.title == 'business') {
+                    $scope.business = true;
+                }
+                $scope.profileData = res.data;
+                $scope.profileData.password = null;
+                $scope.events_offered = res.data.special_events;
+                $scope.services_offered = res.data.services_offered
+            }, function(err) {
+                console.log(err)
+            })
         
         $scope.services_offered = [];
         $scope.toggleService = function(title) {
@@ -107,26 +107,26 @@ angular.module('inspinia')
                 }
 
                 everyThing(profileData);
-                $http.put('/users/' +id, formData, {
-                    headers: {
-                        'Content-Type': undefined
-                    }
-                })
-                .then(function(res) {
-                    $scope.saved = true;
-                    $scope.services_offered = [];
-                    $scope.submitted = false;
-                    document.getElementById('profile_form').reset();
-                    toastr.success('Data updated successfully');
-                    $timeout(function() {
-                        $state.go('user.home');
-                    }, 3000)
-                }, function(err) {
-                    toastr.error('Something went wrong', 'Error')
-                    formData.forEach(function(val ,key, fd) {
-                        formData.delete(key);
+                $http.put(env_var.apiUrl + '/users/' +id, formData, {
+                        headers: {
+                            'Content-Type': undefined
+                        }
                     })
-                })
+                    .then(function(res) {
+                        $scope.saved = true;
+                        $scope.services_offered = [];
+                        $scope.submitted = false;
+                        document.getElementById('profile_form').reset();
+                        toastr.success('Data updated successfully');
+                        $timeout(function() {
+                            $state.go('user.home');
+                        }, 3000)
+                    }, function(err) {
+                        toastr.error('Something went wrong', 'Error')
+                        formData.forEach(function(val ,key, fd) {
+                            formData.delete(key);
+                        })
+                    })
             }
         }
 
@@ -134,7 +134,7 @@ angular.module('inspinia')
             if(this.profileForm.$invalid) {
                 $scope.submitted = true
             } else {
-                $http.put('/users/' +id, profileData)
+                $http.put(env_var.apiUrl + '/users/' +id, profileData)
                     .then(function(res) {
                         $scope.submitted = false;
                         $scope.saved = true;

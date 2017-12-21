@@ -1,11 +1,11 @@
 angular.module('inspinia')
 
-    .controller('customerListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm, $window) {
+    .controller('customerListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm, $window) {
         
         // $scope.customers = []
         getCustomers();        
         function getCustomers() {
-            $http.get('http://192.168.1.50:7576/customer')
+            $http.get(env_var.custApiUrl + '/customer')
             .then(function(res) {
                 $scope.customers = res.data;      
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -35,7 +35,7 @@ angular.module('inspinia')
         // Updating customer status
         $scope.updateStatus = function(index) {
             $scope.customerId = $scope.customers[index]._id;
-            $http.get('http://192.168.1.50:7576/userStatus/' +$scope.customerId)
+            $http.get(env_var.custApiUrl + '/userStatus/' +$scope.customerId)
                 .then(function(res) {
                     
                     if ($scope.customers[index].status == 'active') {
@@ -64,7 +64,7 @@ angular.module('inspinia')
                         text: 'Delete!',
                         btnClass: 'btn-red',
                         action: function(scope,rootScope, button) {
-                            $http.delete('http://192.168.1.50:7576/customer/' +$scope.customerId)
+                            $http.delete(env_var.custApiUrl + '/customer/' +$scope.customerId)
                                 .then(function(res) {
                                     $state.go('.', {}, {reload: true});
                                 }, function(err) {

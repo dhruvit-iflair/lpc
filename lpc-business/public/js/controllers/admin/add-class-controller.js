@@ -1,11 +1,11 @@
 angular.module('inspinia')
 
-    .controller('addClassCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addClassCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
 
         $scope.title = 'Add Class';
         $scope.classData = {};
 
-        $http.get('/classByUser')
+        $http.get(env_var.apiUrl + '/classByUser')
         .then(function(res) {   
             $scope.businesses = [];
             for(var i= 0; i< res.data.length; i++) {
@@ -123,7 +123,7 @@ angular.module('inspinia')
                 catchMeIfYouCan(classData);
                 var team = angular.merge(options, $scope.options2);
 
-                $http.post('/class', options)
+                $http.postenv_var.apiUrl + ('/class', options)
                     .then(function(res) {
                         document.getElementById('class_form').reset();
                         $scope.submitted = false;
@@ -143,7 +143,7 @@ angular.module('inspinia')
             $scope.checkSelection = []
             $scope.editClass = true
             $scope.title = 'Edit Class'
-            $http.get('/class/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/class/' +$stateParams.id)
                 .then(function(res) {
                     $scope.classData = res.data;
                     $scope.selected = $scope.classData._businessId.firstname + ' ' + $scope.classData._businessId.lastname;
@@ -191,7 +191,7 @@ angular.module('inspinia')
                 }
                 catchMeIfYouCan(classData);
                 var team = angular.merge(options, $scope.options2);
-                $http.put('/class/' +$stateParams.id, options)
+                $http.put(env_var.apiUrl + '/class/' +$stateParams.id, options)
                     .then(function(res) {
                         $scope.saved = true
                         $scope.submitted = false;
@@ -204,7 +204,6 @@ angular.module('inspinia')
                         
                     }, function(err) {
                         toastr.error('Something went wrong', 'Error')
-                        //console.log(err);
                     })
             }
         }

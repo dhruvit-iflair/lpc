@@ -1,8 +1,8 @@
 angular.module('inspinia')
 
-    .controller('packageListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('packageListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
 
-        $http.get('/package')
+        $http.get(env_var.apiUrl + '/package')
             .then(function(res) {
                 $scope.packages = res.data
             }, function(err) {
@@ -11,7 +11,7 @@ angular.module('inspinia')
 
             $scope.updateStatus = function(index) {
                 $scope.packageId = $scope.packages[index]._id;
-                $http.get('/packageStatus/' +$scope.packageId)
+                $http.get(env_var.apiUrl + '/packageStatus/' +$scope.packageId)
                     .then(function(res) {
                         
                         if ($scope.packages[index].status == 'active') {
@@ -39,7 +39,7 @@ angular.module('inspinia')
                             text: 'Delete!',
                             btnClass: 'btn-red',
                             action: function(scope,rootScope, button) {
-                                $http.delete('/package/' +$scope.packageId)
+                                $http.delete(env_var.apiUrl + '/package/' +$scope.packageId)
                                     .then(function(res) {
                                         $state.go('.', {}, {reload: true});
                                     }, function(err) {

@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('faqListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
-        $http.get('/faq')
+    .controller('faqListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+        $http.get(env_var.apiUrl + '/faq')
             .then(function(res) {
                 $scope.faq = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -28,7 +28,7 @@ angular.module('inspinia')
 
             $scope.updateStatus = function(index) {
                 $scope.faqId = $scope.faq[index]._id;
-                $http.put('/faqStatus/' +$scope.faqId)
+                $http.put(env_var.apiUrl + '/faqStatus/' +$scope.faqId)
                     .then(function(res) {
                         if ($scope.faq[index].status == 'active') {
                             $scope.faq[index].status = 'inactive';
@@ -55,7 +55,7 @@ angular.module('inspinia')
                             text: 'Delete!',
                             btnClass: 'btn-red',
                             action: function(scope,rootScope, button) {
-                                $http.delete('/faq/' +$scope.faqId)
+                                $http.delete(env_var.apiUrl + '/faq/' +$scope.faqId)
                                     .then(function(res) {
                                         $state.go('.', {}, {reload: true});
                                     }, function(err) {

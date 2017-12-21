@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerClassSignupCtrl', function($scope, $state, $rootScope, $http) {
+    .controller('customerClassSignupCtrl', function(env_var, $scope, $state, $rootScope, $http) {
         
         localStorage.removeItem('addKid')
         // localStorage.removeItem('signup2')
@@ -9,14 +9,14 @@ angular.module('inspinia')
         var id = JSON.parse(localStorage.getItem('classSignupId'));
         if(localStorage.getItem('classSignupId')) {
             $scope.price = id.price;
-            $http.get('http://192.168.1.50:7575/class/' + id.id)
+            $http.get(env_var.bizApiUrl + '/class/' + id.id)
                 .then(function(res) {
                     $scope.class = res.data
                 }, function(err) {
                     console.log(err)
                 })    
             
-            $http.get('/getKidByUser/' + $rootScope.user._id)
+            $http.get(env_var.apiUrl + '/getKidByUser/' + $rootScope.user._id)
                 .then(function(res) {
                     $scope.kids = res.data
                     $scope.k = 0;
@@ -65,10 +65,6 @@ angular.module('inspinia')
         }
 
         $scope.goTo = function() {
-            // var args = JSON.parse(localStorage.getItem("classSignupId"));
-            // args["price"] = $scope.price;
-            // localStorage.setItem("classSignupId", JSON.stringify(args));            
-
             if($scope.kidSelected.length == 0) {
                 $scope.kidsError = true
             } else if($scope.terms == false ) {

@@ -1,6 +1,6 @@
 angular.module('inspinia')
 
-    .controller('addEventCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addEventCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         
         $scope.eventData = {};
         $scope.editEvent = false;
@@ -11,7 +11,7 @@ angular.module('inspinia')
             if(this.eventForm.$invalid) {
                 $scope.submitted = true;
             } else {
-                $http.post('/event', eventData)
+                $http.post(env_var.apiUrl + '/event', eventData)
                 .then(function(res) {
                     $scope.saved = true;
                     document.getElementById('event_form').reset();
@@ -31,7 +31,7 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editEvent = true;
             $scope.title = 'Edit Offered Events'
-            $http.get('/event/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/event/' +$stateParams.id)
             .then(function(res) {
                 $scope.eventData = res.data;
             }, function(err) {
@@ -44,7 +44,7 @@ angular.module('inspinia')
             if(this.eventForm.$invalid) {
                 $scope.submitted = true;
             } else {
-                $http.put('/event/' +$stateParams.id, eventData)
+                $http.put(env_var.apiUrl + '/event/' +$stateParams.id, eventData)
                     .then(function(res) {
                         $scope.saved = true;
                         $scope.submitted = false;
@@ -56,7 +56,6 @@ angular.module('inspinia')
                         }, 3000)
                     }, function(err) {
                         toastr.error('Something went wrong', 'Error')
-                        //console.log(err);
                     })
             }
         }

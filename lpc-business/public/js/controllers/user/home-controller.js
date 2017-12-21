@@ -1,18 +1,18 @@
 angular.module('inspinia')
-    .controller('homeCtrl', function (AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
+    .controller('homeCtrl', function (env_var, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
         
-        $http.get('/cms').then(function(res) {
+        $http.get(env_var.apiUrl + '/cms').then(function(res) {
             $scope.cms = res.data;
             $scope.cmsId = true;
         })
 
         if($rootScope.user) {
-            $http.get('/bussphoto/' + $rootScope.user._id)
-            .then(function(res) {
-                $scope.slider = res.data
-            }, function(err) {
-                console.log(err)
-            })
+            $http.get(env_var.apiUrl + '/bussphoto/' + $rootScope.user._id)
+                .then(function(res) {
+                    $scope.slider = res.data
+                }, function(err) {
+                    console.log(err)
+                })
         }
         
         $timeout(function() {

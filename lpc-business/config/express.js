@@ -8,6 +8,7 @@ var express = require('express'),
 
 module.exports = function() {
 	var app = express();
+	// app.use(require('morgan')('dev')); // make sure you install the "morgan" package.
 
 	app.use(bodyParser.urlencoded({
 		extended: true,
@@ -63,6 +64,10 @@ module.exports = function() {
 	app.get('*', function(req, res, next) {
 		res.sendFile(path.resolve('index.html'));
 	})
+
+	// app.use(function(req, res) {
+	// 	res.send('404, Page don\'t\ exists')
+	// });
 	
 	return app;
 }

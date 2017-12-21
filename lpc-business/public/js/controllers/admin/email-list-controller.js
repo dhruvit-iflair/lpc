@@ -1,10 +1,10 @@
 angular.module('inspinia')
 
-    .controller('emailListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('emailListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
         getemails();        
         function getemails() {
-            $http.get('/email')
+            $http.get(env_var.apiUrl + '/email')
             .then(function(res) {
                 $scope.emails = res.data;       
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -32,7 +32,7 @@ angular.module('inspinia')
 
         $scope.updateStatus = function(index) {
             $scope.emailId = $scope.emails[index]._id;
-            $http.put('/emailStatus/' +$scope.emailId)
+            $http.put(env_var.apiUrl + '/emailStatus/' +$scope.emailId)
                 .then(function(res) {
                     
                     if ($scope.emails[index].status == 'active') {
@@ -62,7 +62,7 @@ angular.module('inspinia')
                             text: 'Delete!',
                             btnClass: 'btn-red',
                             action: function(scope,rootScope, button) {
-                                $http.delete('/email/' +$scope.emailId)
+                                $http.delete(env_var.apiUrl + '/email/' +$scope.emailId)
                                     .then(function(res) {
                                         $state.go('.', {}, {reload: true});
                                     }, function(err) {

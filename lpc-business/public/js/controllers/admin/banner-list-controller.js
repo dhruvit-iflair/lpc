@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('bannerListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
-        $http.get('/banner')
+    .controller('bannerListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+        $http.get(env_var.apiUrl + '/banner')
             .then(function(res) {
                 $scope.banner = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -29,7 +29,7 @@ angular.module('inspinia')
             $scope.status = false;
             $scope.updateStatus = function(index) {
                 $scope.bannerId = $scope.banner[index]._id;
-                $http.put('/bannerStatus/' +$scope.bannerId)
+                $http.put(env_var.apiUrl + '/bannerStatus/' +$scope.bannerId)
                     .then(function(res) {
                         if ($scope.banner[index].status == 'active') {
                             $scope.banner[index].status = 'inactive';
@@ -57,7 +57,7 @@ angular.module('inspinia')
                             text: 'Delete!',
                             btnClass: 'btn-red',
                             action: function(scope,rootScope, button) {
-                                $http.delete('/banner/' +$scope.bannerId)
+                                $http.delete(env_var.apiUrl + '/banner/' +$scope.bannerId)
                                     .then(function(res) {
                                         $state.go('.', {}, {reload: true});
                                     }, function(err) {

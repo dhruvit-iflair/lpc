@@ -1,8 +1,8 @@
 angular.module('inspinia')
 
-    .controller('eventListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('eventListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
-        $http.get('/event')
+        $http.get(env_var.apiUrl + '/event')
         .then(function(res) {
             $scope.event = res.data;
             $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -29,7 +29,7 @@ angular.module('inspinia')
 
         $scope.updateStatus = function(index) {
             $scope.eventId = $scope.event[index]._id;
-            $http.get('/eventStatus/' +$scope.eventId)
+            $http.get(env_var.apiUrl + '/eventStatus/' +$scope.eventId)
                 .then(function(res) {
                     
                     if ($scope.event[index].status == 'active') {
@@ -57,7 +57,7 @@ angular.module('inspinia')
                         text: 'Delete!',
                         btnClass: 'btn-red',
                         action: function(scope,rootScope, button) {
-                            $http.delete('/event/' +$scope.eventId)
+                            $http.delete(env_var.apiUrl + '/event/' +$scope.eventId)
                                 .then(function(res) {
                                     $state.go('.', {}, {reload: true});
                                 }, function(err) {

@@ -6,18 +6,16 @@ angular.module('inspinia')
         email: 'u@me.com'
     })
 
-    .controller('userClassCtrl', function($transitions, userOnline, appName, $scope, $rootScope, $state, $http, $timeout) {
+    .controller('userClassCtrl', function(env_var, $transitions, userOnline, appName, $scope, $rootScope, $state, $http, $timeout) {
         
         $scope.address = $rootScope.user.street_address + ' ' + $rootScope.user.city + ' ' 
             + ' ' + $rootScope.user.zip + ', ' + $rootScope.user.state;
         
         $scope.classes = [];
-        $http.get('http://192.168.1.50:7575/class', {params: 
+        $http.get(env_var.bizApiUrl + '/class', {params: 
                 {id: $rootScope.user._id}})
             .then(function(res) {
-                // console.log(res.data)
                 $scope.currentDate = new Date().toISOString();
-                // For removing dates past current date
                 for(var i= 0; i< res.data.length; i++) {
                     if($scope.currentDate <= res.data[i].date) {
                         $scope.classes.push(res.data[i]);
@@ -57,7 +55,6 @@ angular.module('inspinia')
                     $timeout(function() {
                         getDistance(c)
                     }, 0)
-                    // console.log(status)
                 }
             });
         }
@@ -72,42 +69,17 @@ angular.module('inspinia')
                             if (status == google.maps.GeocoderStatus.OK) {
                                 latitude = results[0].geometry.location.lat();
                                 longitude = results[0].geometry.location.lng();
-                                // console.log(latitude + ', ' + longitude);
                             } 
                             var origin1 = new google.maps.LatLng(latitude, longitude);
                             var destinationA = $scope.address;
                         });
                     }
                 }
-
-                // var p1 = new google.maps.LatLng(45.463688, 9.18814);
-                // var p2 = new google.maps.LatLng(46.0438317, 9.75936230000002);
-                // console.log(calcDistance(p1, p2));
-                // function calcDistance(p1, p2) {
-                //     return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-                // }
-
-                // var directionsService = new google.maps.DirectionsService;
-                // var request = {
-                //     // origin: 'Gulistan Society Rd, Shah-E-Alam Darwaja, P & T Colony, Shah-E-Alam Roja, Ahmedabad, Gujarat 380028',
-                //     // destination: 'iFlair Web Technologies Pvt. Ltd., 401, Karma Complex, Opposite Chandanbala Flat, Near Parimal Railway Crossing C G Road, Chimanlal Girdharlal Rd, Ahmedabad, Gujarat 380007',
-                //     origin: {lat: 22.997324, lng: 72.590286},
-                //     destination: {lat: 23.013847, lng: 72.559962},
-                //     travelMode  : google.maps.DirectionsTravelMode.DRIVING                                
-                // }
-                // directionsService.route(request, function(response, status) {
-                //     if ( status == google.maps.DirectionsStatus.OK ) {
-                //       console.log( (response.routes[0].legs[0].distance.value) / 1000 ); // the distance in metres
-                //     }
-                //     else {
-                //       console.log('Something went wrong')
-                //     }
-                // });
             }
         }
 
         $scope.page = ''
-        $http.get('http://192.168.1.50:7575/package')
+        $http.get(env_var.bizApiUrl + '/package')
             .then(function(res) {
                 $scope.packages = res.data
             }, function(err) {

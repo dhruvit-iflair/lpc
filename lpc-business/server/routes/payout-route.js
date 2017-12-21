@@ -32,12 +32,9 @@ module.exports = function(app) {
 			}
 		}, function(err, r, result) {
 				var data = JSON.parse(result);
-				// res.send(data)
 				if(data.error) {
 					res.send('ID has expired')
 				} else {
-					// res.send(data)
-					// Authenticating business-user
 					stripe.customers.create(
 						{ email: req.query.email },
 						{ stripe_account: data.stripe_user_id }
@@ -58,7 +55,6 @@ module.exports = function(app) {
 									payout.save(function(err, pay) {
 										if(err) res.json({message: 'Something went wrong' +
 											' ' + ' ' + err	})
-										// res.json(pay)
 										User.findByIdAndUpdate({ _id: req.query.id},
 											{$set: 
 												{account_id: data.stripe_user_id,
@@ -142,7 +138,9 @@ module.exports = function(app) {
 				res.sendStatus(500); 
 				return;
 			}
-			result ? res.sendStatus(200) : res.sendStatus(404)
-		})
+			if(result) {
+				res.sendStatus(200)
+			}
+		})	
 	})
 }

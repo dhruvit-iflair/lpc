@@ -1,6 +1,6 @@
 angular.module('inspinia')
 
-    .controller('addBlogCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addBlogCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         
         $scope.title = 'Add Blog';
         $scope.blogData = {};
@@ -41,7 +41,7 @@ angular.module('inspinia')
                 $scope.imageError = false;
 
                 everyThing(blogData);
-                $http.post('/blog', formData, {
+                $http.post(env_var.apiUrl + '/blog', formData, {
                     headers: {
                         'Content-Type': undefined
                     }
@@ -65,7 +65,7 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editblog = true;
             $scope.title = 'Edit blog'
-            $http.get('/blog/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/blog/' +$stateParams.id)
                 .then(function(res) {
                     $scope.blogData = res.data;
                     document.getElementById('image').src = '/upload/' + res.data.image;
@@ -84,7 +84,7 @@ angular.module('inspinia')
                 $scope.imageError = false;
 
                 everyThing(blogData);
-                $http.put('/blog/' +$stateParams.id, formData, {
+                $http.put(env_var.apiUrl + '/blog/' +$stateParams.id, formData, {
                     headers: {
                         'Content-Type': undefined
                     }

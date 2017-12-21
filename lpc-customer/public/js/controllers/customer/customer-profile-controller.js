@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerProfileCtrl', function($state, $scope, $rootScope, $http, toastr, $timeout) {
+    .controller('customerProfileCtrl', function(env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
         
         var id = $rootScope.user._id;
         $scope.profileData = {};
@@ -11,19 +11,19 @@ angular.module('inspinia')
             {id: 1, title: 'Birthdays'},
         ]
         
-        $http.get('/customer/' + id)
-         .then(function(res) {
-            $scope.profileData = res.data;
-            $scope.profileData.password = null;
-         }, function(err) {
-             console.log(err)
-        })
+        $http.get(env_var.apiUrl + '/customer/' + id)
+            .then(function(res) {
+                $scope.profileData = res.data;
+                $scope.profileData.password = null;
+            }, function(err) {
+                console.log(err)
+            })
         
         $scope.submit = function(profileData) {
             if(this.profileForm.$invalid) {
                 $scope.submitted = true
             } else {
-                $http.put('/customer/' +id, profileData)
+                $http.put(env_var.apiUrl + '/customer/' +id, profileData)
                     .then(function(res) {
                         $scope.submitted = false;
                         $scope.saved = true;

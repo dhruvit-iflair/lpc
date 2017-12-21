@@ -1,10 +1,10 @@
 angular.module('inspinia')
 
-    .controller('blogListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('blogListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
         getblogs();        
         function getblogs() {
-            $http.get('/blog')
+            $http.get(env_var.apiUrl + '/blog')
             .then(function(res) {
                 $scope.blogs = res.data;       
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -32,7 +32,7 @@ angular.module('inspinia')
 
         $scope.updateStatus = function(index) {
             $scope.blogId = $scope.blogs[index]._id;
-            $http.put('/blogStatus/' +$scope.blogId)
+            $http.put(env_var.apiUrl + '/blogStatus/' +$scope.blogId)
                 .then(function(res) {
                     
                     if ($scope.blogs[index].status == 'active') {
@@ -62,7 +62,7 @@ angular.module('inspinia')
                             text: 'Delete!',
                             btnClass: 'btn-red',
                             action: function(scope,rootScope, button) {
-                                $http.delete('/blog/' +$scope.blogId)
+                                $http.delete(env_var.apiUrl + '/blog/' +$scope.blogId)
                                     .then(function(res) {
                                         $state.go('.', {}, {reload: true});
                                     }, function(err) {

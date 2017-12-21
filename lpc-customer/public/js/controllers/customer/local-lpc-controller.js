@@ -1,8 +1,8 @@
 angular.module('inspinia')
-	.controller('localLPCCtrl', function($timeout, $stateParams, $state, $http, $rootScope, $scope) {
+	.controller('localLPCCtrl', function(env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
         
 		var id = localStorage.getItem('_businessId')
-		$http.get('http://192.168.1.50:7575/users/' + id)
+		$http.get(env_var.bizApiUrl + '/users/' + id)
 			.then(function(res) {
                 $scope.address = res.data.street_address + ' ' + res.data.city +
                     ' ' + res.data.zip + ', ' + res.data.state;
@@ -14,7 +14,7 @@ angular.module('inspinia')
             })
 
         $scope.classes = []
-		$http.get('http://192.168.1.50:7575/classByBusiness/' + id, {
+		$http.get(env_var.bizApiUrl + '/classByBusiness/' + id, {
             params: {_customerId: $rootScope.user._id}
         })
 			.then(function(res) {
@@ -30,7 +30,7 @@ angular.module('inspinia')
 				console.log(err)
 			})
 
-		$http.get('http://192.168.1.50:7575/bussphoto/' + id)
+		$http.get(env_var.bizApiUrl + '/bussphoto/' + id)
 			.then(function(res) {
 				$scope.photos = res.data;
 			}, function(err) {

@@ -1,6 +1,6 @@
 angular.module('inspinia')
 
-    .controller('addServiceCtrl', function(toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addServiceCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         
         $scope.serviceData = {};
         $scope.editService = false;
@@ -11,7 +11,7 @@ angular.module('inspinia')
             if(this.serviceForm.$invalid) {
                 $scope.submitted = true;
             } else {
-                $http.post('/service', serviceData)
+                $http.post(env_var.apiUrl + '/service', serviceData)
                 .then(function(res) {
                     $scope.saved = true;
                     document.getElementById('service_form').reset();
@@ -22,7 +22,6 @@ angular.module('inspinia')
                     }, 3000)
                 }, function(err) {
                     toastr.error('Something went wrong', 'Error')
-                    //console.log(err);
                 })
             }
         }
@@ -30,7 +29,7 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editService = true;
             $scope.title = 'Edit Offered Service'
-            $http.get('/service/' +$stateParams.id)
+            $http.get(env_var.apiUrl + '/service/' +$stateParams.id)
             .then(function(res) {
                 $scope.serviceData = res.data;
             }, function(err) {
@@ -43,7 +42,7 @@ angular.module('inspinia')
             if(this.serviceForm.$invalid) {
                 $scope.submitted = true;
             } else {
-                $http.put('/service/' +$stateParams.id, serviceData)
+                $http.put(env_var.apiUrl + '/service/' +$stateParams.id, serviceData)
                     .then(function(res) {
                         $scope.saved = true;
                         $scope.submitted = false;
@@ -54,7 +53,6 @@ angular.module('inspinia')
                         }, 3000)
                     }, function(err) {
                         toastr.error('Something went wrong', 'Error')
-                        //console.log(err);
                     })
             }
         }

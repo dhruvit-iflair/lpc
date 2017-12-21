@@ -1,12 +1,12 @@
 angular.module('inspinia')
-.controller('customerClassSignup2Ctrl', function($scope, $state, $rootScope, $http) {
+.controller('customerClassSignup2Ctrl', function(env_var, $scope, $state, $rootScope, $http) {
     
     localStorage.removeItem('addKid')
     $scope.price;
     if(localStorage.getItem('classSignupId')) {
         var id = JSON.parse(localStorage.getItem('classSignupId'));
         // $scope.price = id.price
-        $http.get('http://192.168.1.50:7575/class/' + id.id)
+        $http.get(env_var.bizApiUrl + '/class/' + id.id)
             .then(function(res) {
                 $scope.class = res.data
             }, function(err) {

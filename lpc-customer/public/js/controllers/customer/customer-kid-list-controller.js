@@ -1,12 +1,12 @@
 angular.module('inspinia')
-    .controller('customerKidListCtrl', function($ngConfirm, $scope, $state, $rootScope, $http) {
+    .controller('customerKidListCtrl', function(env_var, $ngConfirm, $scope, $state, $rootScope, $http) {
         
         localStorage.removeItem('kidId');
         localStorage.removeItem('addKid')
 
         getData()
         function getData() {
-            $http.get('/getKidByUser/' +$rootScope.user._id)
+            $http.get(env_var.apiUrl + '/getKidByUser/' +$rootScope.user._id)
                 .then(function(res) {
                     $scope.kids = res.data;
                 }, function(err) {
@@ -32,7 +32,7 @@ angular.module('inspinia')
                         text: 'Delete!',
                         btnClass: 'btn-red',
                         action: function(scope,rootScope, button) {
-                            $http.delete('/kid/' +$scope.kidId)
+                            $http.delete(env_var.apiUrl + '/kid/' +$scope.kidId)
                                 .then(function(res) {
                                     getData();
                                 }, function(err) {

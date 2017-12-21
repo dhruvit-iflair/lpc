@@ -41,7 +41,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="packages in packages">
-                                        <td>{{ packages.date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td>{{ packages.start_date | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
                                         <td>{{ packages.package_name }}</td>
                                         <td>{{ packages.discount }}</td>
                                         <td>{{ packages._classId.length }}</td>

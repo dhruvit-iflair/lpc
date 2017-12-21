@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('registerCtrl', function(toastr, $stateParams, $scope, $state, $http, $location, $rootScope) {
+    .controller('registerCtrl', function(env_var, toastr, $stateParams, $scope, $state, $http, $location, $rootScope) {
         
         $scope.title = 'Register to LPC';
         $scope.registerData = {}
@@ -13,7 +13,7 @@ angular.module('inspinia')
             {id: 1, title: 'Birthdays'},
         ]
 
-        $http.get('/role')
+        $http.get(env_var.apiUrl + '/role')
             .then(function(res) {
                 $scope.role = res.data[1]._id;
             }, function(err) {
@@ -27,7 +27,7 @@ angular.module('inspinia')
             else {
                 $scope.submitted = false;
                 console.log(registerData);
-                $http.post('/businessEmail', registerData)
+                $http.post(env_var.apiUrl + '/businessEmail', registerData)
                     .then(function(res) {
                         if(res.data === 'Email already exists') {
                             toastr.error(res.data, 'Error')
@@ -124,7 +124,7 @@ angular.module('inspinia')
                 everyThing();
                 formData.append('business_description', profileData.business_description);
 
-                $http.post('/register', formData, {
+                $http.post(env_var.apiUrl + '/register', formData, {
                         headers: { 'Content-Type': undefined }
                     })
                     .then(function(res) {

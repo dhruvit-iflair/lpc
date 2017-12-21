@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('businessLocationCtrl', function($timeout, toastr, $http, $scope, $rootScope, $state) {
+    .controller('businessLocationCtrl', function(env_var, $timeout, toastr, $http, $scope, $rootScope, $state) {
         
         $scope.locationData = {};
 
@@ -13,7 +13,7 @@ angular.module('inspinia')
                 }
                 $scope.submitted = false;
                 $scope.saved = true;
-                $http.post('/address', l_data)
+                $http.post(env_var.apiUrl + '/address', l_data)
                     .then(function(res) {                         
                         toastr.success('Address saved successfully')
                         $timeout(function() {
@@ -29,7 +29,7 @@ angular.module('inspinia')
 
         if(localStorage.getItem('addressId')) {
             var id = localStorage.getItem('addressId');
-            $http.get('/address/' +id)
+            $http.get(env_var.apiUrl + '/address/' +id)
                 .then(function(res) {
                     $scope.editLocation = true
                     $scope.locationData = res.data;
@@ -48,7 +48,7 @@ angular.module('inspinia')
                     'address': locationData.address,
                     '_businessId': $rootScope.user._id
                 }
-                $http.put('/address/' + id, l_data)
+                $http.put(env_var.apiUrl + '/address/' + id, l_data)
                     .then(function(res) {
                         $scope.submitted = false;
                         $scope.saved = true;

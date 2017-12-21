@@ -2,18 +2,18 @@ var customerCtrl = require('../controllers/customer-controller'),
     Customer = require('mongoose').model('Customer');
 
 module.exports = function(app) {
-    app.route('/customer')
+    app.route('/lpc/customer')
         .post(customerCtrl.create)
         .get(customerCtrl.list);
 
-    app.route('/customer/:id')
+    app.route('/lpc/customer/:id')
         .get(customerCtrl.getCustomerById)
         .delete(customerCtrl.delete)
         .put(customerCtrl.update);
 
-    app.get('/customerStatus/:id', customerCtrl.updateStatus);
+    app.get('/lpc/customerStatus/:id', customerCtrl.updateStatus);
 
-    app.post('/login', function(req, res, next) {
+    app.post('/lpc/login', function(req, res, next) {
 		Customer.findOne({email: req.body.email}, function(err, user) {
 			if(err) return next(err);
 			if(user) {

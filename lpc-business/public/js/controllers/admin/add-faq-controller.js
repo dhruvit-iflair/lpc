@@ -1,5 +1,5 @@
 angular.module('inspinia')
-.controller('addfaqCtrl', function(toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+.controller('addfaqCtrl', function(env_var, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
     
     $scope.title = 'Add FAQ';
     $scope.faqData = {};
@@ -15,7 +15,7 @@ angular.module('inspinia')
         } else {
             $scope.submitted = false;
 
-            $http.post('/faq', faqData)
+            $http.post(env_var.apiUrl + '/faq', faqData)
                 .then(function(res) {
                     $scope.saved = true;
                     document.getElementById('faq_form').reset();
@@ -32,7 +32,7 @@ angular.module('inspinia')
     if($stateParams.id) {
         $scope.editFAQ = true;
         $scope.title = 'Edit FAQ'
-        $http.get('/faq/' +$stateParams.id)
+        $http.get(env_var.apiUrl + '/faq/' +$stateParams.id)
             .then(function(res) {
                 $scope.faqData = res.data;
             }, function(err) {
@@ -46,7 +46,7 @@ angular.module('inspinia')
         } else {
             $scope.submitted = false;
 
-            $http.put('/faq/' +$stateParams.id, faqData)
+            $http.put(env_var.apiUrl + '/faq/' +$stateParams.id, faqData)
                 .then(function(res) {
                     $scope.saved = true;
                     document.getElementById('faq_form').reset();

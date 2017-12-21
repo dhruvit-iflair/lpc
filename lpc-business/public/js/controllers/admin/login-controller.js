@@ -1,8 +1,8 @@
 angular.module('inspinia')
 
-    .controller('loginCtrl', function ($window, AuthInterceptor, toastr, $transitions, $scope, $rootScope, $http, $state, $location) {
+    .controller('loginCtrl', function (env_var, $window, AuthInterceptor, toastr, $transitions, $scope, $rootScope, $http, $state, $location) {
         
-        $http.get('/role')
+        $http.get(env_var.apiUrl + '/role')
             .then(function(res) {
                 $scope.roles = res.data
             })
@@ -13,7 +13,8 @@ angular.module('inspinia')
                 $scope.submitted = true
             } else {
                 $scope.submitted = false;
-                $http.post('/login', loginData)
+                
+                $http.post(env_var.apiUrl + '/login', loginData)
                     .then(function(res) {
                         if(res.status === 401 || res.status === 403) {
                             toastr.error(res.data.message)
@@ -36,10 +37,8 @@ angular.module('inspinia')
                                 $state.go('index.dashboard')
                             } else {
                                 if($rootScope.currentPath) {
-                                    //console.log($rootScope.currentPath)
                                     $state.go($rootScope.currentPath)
                                 } else if($rootScope.restrictedAfterLogin) {
-                                    //console.log($rootScope.restrictedAfterLogin);
                                     $state.go($rootScope.restrictedAfterLogin);
                                 } else {
                                     $state.go('user.home')

@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('paymentCtrl', function($timeout, $stateParams, $state, $http, $rootScope, $scope) {
+    .controller('paymentCtrl', function(env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
 
 		var stripe = Stripe('pk_test_WJtbVCYgAug1F2FLBetlecXq');
 		var elements = stripe.elements();
@@ -28,19 +28,19 @@ angular.module('inspinia')
 		getMe()
 		function getMe() {
 			$scope.show = false;
-			$http.get('http://192.168.1.50:7575/paymentListById/' + $rootScope.user._id)
-			.then(function(res) {
-				if(res.data.status == '404') {
-					$scope.show = false;
-					card.mount('#card-element')
-				} else {
-					$scope.show = true;
-					card.mount('#card-element')
-					$scope.customerCards = res.data;
-				}
-			}, function(err) {
-				console.log(err)
-			})
+			$http.get(env_var.bizApiUrl + '/paymentListById/' + $rootScope.user._id)
+				.then(function(res) {
+					if(res.data.status == '404') {
+						$scope.show = false;
+						card.mount('#card-element')
+					} else {
+						$scope.show = true;
+						card.mount('#card-element')
+						$scope.customerCards = res.data;
+					}
+				}, function(err) {
+					console.log(err)
+				})
 		}
 
 		card.addEventListener('change', function(event) {
@@ -85,7 +85,7 @@ angular.module('inspinia')
 									stripe_account: classId.account_id,
 								}
 							
-								$http.post('http://192.168.1.50:7575/charge', data, {params: {kids}})
+								$http.post(env_var.bizApiUrl + '/charge', data, {params: {kids}})
 									.then(function(res) {
 										if(res.data) {
 											alert(res.data)
@@ -107,7 +107,7 @@ angular.module('inspinia')
 									application_fee: Math.round((classId.price * 1.5) / 100),
 									stripe_account: classId.account_id
 								}
-								$http.post('http://192.168.1.50:7575/savePayment', data, {params: {kids}})
+								$http.post(env_var.bizApiUrl + '/savePayment', data, {params: {kids}})
 									.then(function(res) {
 										if(res.data) {
 											alert(res.data)
@@ -139,7 +139,7 @@ angular.module('inspinia')
 				kids.push(signup2.check[i])
 			}
 			
-			$http.post('http://192.168.1.50:7575/chargeSavedCard', data, {params: {kids}})
+			$http.post(env_var.bizApiUrl + '/chargeSavedCard', data, {params: {kids}})
 				.then(function(res) {
 					if(res.data) {
 						alert(res.data)
@@ -151,7 +151,7 @@ angular.module('inspinia')
 		}
 
 		$scope.removeCard = function (cards) {
-			$http.delete('http://192.168.1.50:7575/deleteCard/' + cards._id)
+			$http.delete(env_var.bizApiUrl + '/deleteCard/' + cards._id)
 				.then(function(res) {
 					getMe()
 					console.log(res.data)
@@ -159,9 +159,5 @@ angular.module('inspinia')
 					console.log(err)
 				})
 		}
-
-		// $scope.useAnother = function(selected) {
-
-		// }
 
     })

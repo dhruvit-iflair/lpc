@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('businessListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
-        $http.get('/users')
+    .controller('businessListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+        $http.get(env_var.apiUrl + '/users')
             .then(function(res) {
                 $scope.business = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -29,7 +29,7 @@ angular.module('inspinia')
             $scope.status = false;
             $scope.updateStatus = function(index) {
                 $scope.businessId = $scope.business[index]._id;
-                $http.get('/userStatus/' +$scope.businessId)
+                $http.get(env_var.apiUrl + '/userStatus/' +$scope.businessId)
                     .then(function(res) {
                         if ($scope.business[index].status == 'active') {
                             $scope.business[index].status = 'inactive';
@@ -59,7 +59,7 @@ angular.module('inspinia')
                             text: 'Delete!',
                             btnClass: 'btn-red',
                             action: function(scope,rootScope, button) {
-                                $http.delete('/users/' +$scope.businessId)
+                                $http.delete(env_var.apiUrl + '/users/' +$scope.businessId)
                                     .then(function(res) {
                                         $state.go('.', {}, {reload: true});
                                     }, function(err) {

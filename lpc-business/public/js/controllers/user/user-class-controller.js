@@ -1,10 +1,10 @@
 angular.module('inspinia')
-    .controller('userClassCtrl', function($scope, $rootScope, $state, $http) {
+    .controller('userClassCtrl', function(env_var, $scope, $rootScope, $state, $http) {
         
         localStorage.removeItem('signup2');
         
         $scope.classes = [];
-        $http.get('/class')
+        $http.get(env_var.apiUrl + '/class')
             .then(function(res) {
                 $scope.currentDate = new Date().toISOString();
                 // For removing dates past current date
@@ -18,7 +18,7 @@ angular.module('inspinia')
             })
 
         $scope.page = ''
-        $http.get('/package')
+        $http.get(env_var.apiUrl + '/package')
             .then(function(res) {
                 $scope.packages = res.data
             }, function(err) {

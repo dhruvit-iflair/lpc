@@ -1,8 +1,8 @@
 angular.module('inspinia')
 
-    .controller('serviceListCtrl', function(DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('serviceListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
-        $http.get('/service')
+        $http.get(env_var.apiUrl + '/service')
         .then(function(res) {
             $scope.service = res.data;
             $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -30,7 +30,7 @@ angular.module('inspinia')
         $scope.status = false;
         $scope.updateStatus = function(index) {
             $scope.serviceId = $scope.service[index]._id;
-            $http.get('/serviceStatus/' +$scope.serviceId)
+            $http.get(env_var.apiUrl + '/serviceStatus/' +$scope.serviceId)
                 .then(function(res) {
                     
                     if ($scope.service[index].status == 'active') {
@@ -58,7 +58,7 @@ angular.module('inspinia')
                         text: 'Delete!',
                         btnClass: 'btn-red',
                         action: function(scope,rootScope, button) {
-                            $http.delete('/service/' +$scope.serviceId)
+                            $http.delete(env_var.apiUrl + '/service/' +$scope.serviceId)
                                 .then(function(res) {
                                     $state.go('.', {}, {reload: true});
                                 }, function(err) {
@@ -69,9 +69,7 @@ angular.module('inspinia')
                     close: {
                         text: 'Close',
                         btnClass: 'btn-dark',
-                        close: function(scope, button){
-                        
-                        }
+                        close: function(scope, button){}
                     }
                 }
             });
