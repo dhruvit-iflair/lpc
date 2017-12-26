@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('addBusinessCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
-        
+    .controller('addBusinessCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+        $loader.stop()
         $scope.title = 'Add Business';
         $scope.imageLength;
         $rootScope.services = [

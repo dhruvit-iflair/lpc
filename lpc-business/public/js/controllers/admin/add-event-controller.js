@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('addEventCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
-        
+    .controller('addEventCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+        $loader.stop()
         $scope.eventData = {};
         $scope.editEvent = false;
         $scope.title = 'Add Offered Events';

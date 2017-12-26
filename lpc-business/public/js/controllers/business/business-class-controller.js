@@ -1,6 +1,7 @@
 angular.module('inspinia')
 
-    .controller('businessClassCtrl', function(env_var, AuthInterceptor, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('businessClassCtrl', function($loader, env_var, AuthInterceptor, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+        $loader.stop();
         $scope.classData = {};
         $scope.address = []
         var currentDate = new Date();

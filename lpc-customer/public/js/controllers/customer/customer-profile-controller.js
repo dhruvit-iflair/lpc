@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerProfileCtrl', function(env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
+    .controller('customerProfileCtrl', function($loader, env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
         
         var id = $rootScope.user._id;
         $scope.profileData = {};
@@ -13,6 +13,7 @@ angular.module('inspinia')
         
         $http.get(env_var.apiUrl + '/customer/' + id)
             .then(function(res) {
+                $loader.stop()
                 $scope.profileData = res.data;
                 $scope.profileData.password = null;
             }, function(err) {

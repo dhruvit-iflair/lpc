@@ -1,9 +1,10 @@
 angular.module('inspinia')
-	.controller('localLPCCtrl', function(env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
+	.controller('localLPCCtrl', function($loader, env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
         
 		var id = localStorage.getItem('_businessId')
 		$http.get(env_var.bizApiUrl + '/users/' + id)
 			.then(function(res) {
+                $loader.stop()
                 $scope.address = res.data.street_address + ' ' + res.data.city +
                     ' ' + res.data.zip + ', ' + res.data.state;
                 

@@ -14,14 +14,15 @@ if(window) {
         'uiRouterStyles',
         'angularLoad',
         'angularPayments',
-        // 'angular-stripe'
+        'ui.carousel',
+        'angular-ui-loader'
     ])
 
     .constant('env_var', env)
     
-    .run(function($transitions, $state, $rootScope, $location, $timeout) {  
-        $transitions.onStart({},
-          function($transition) {
+    .run(function($transitions, $loader, $state, $rootScope, $location, $timeout) {  
+        $transitions.onStart({}, function($transition) {
+            $loader.startBackground()
             var st = $state.get()
             var auth = $transition.injector().get('AuthInterceptor');
             if(!auth.isLoggedIn()) {
@@ -31,7 +32,9 @@ if(window) {
                     $rootScope.restrictedAfterLogin = $transition.to().name;
                     var a = confirm('Please login to access this page');
                     if(a) {
-                        $state.go('login');
+                        $timeout(function() {
+                            $state.go('login');
+                        })
                     }
                     return false;
                 }
@@ -40,12 +43,9 @@ if(window) {
                 $rootScope.loggedIn = true;
                 $rootScope.loggedOut = false;
                 if(($transition.to().name === 'login' || $transition.to().name === 'register')) {
-                    if($rootScope.user.role_id == 0) {
-                        $state.go('index.dashboard');
-                    } else {
+                    $timeout(function() {
                         $state.go('user.home');
-                    }
-                    return false;
+                    })
                 }
             }
           
@@ -57,7 +57,15 @@ if(window) {
                     $state.go('login')
                 }
             }
-        });
+        })
+
+        $transitions.onSuccess({}, function($transition) {
+            // $loader.stop()
+        })
+
+        $transitions.onError({}, function($transition) {
+            $loader.stop()
+        })
     });
     
 })();

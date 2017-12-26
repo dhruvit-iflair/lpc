@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('addBlogCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
-        
+    .controller('addBlogCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+        $loader.stop()
         $scope.title = 'Add Blog';
         $scope.blogData = {};
         $scope.imageLength;

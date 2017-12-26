@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('paymentCtrl', function(env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
+    .controller('paymentCtrl', function($loader, env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
 
 		var stripe = Stripe('pk_test_WJtbVCYgAug1F2FLBetlecXq');
 		var elements = stripe.elements();
@@ -30,6 +30,7 @@ angular.module('inspinia')
 			$scope.show = false;
 			$http.get(env_var.bizApiUrl + '/paymentListById/' + $rootScope.user._id)
 				.then(function(res) {
+					$loader.stop()
 					if(res.data.status == '404') {
 						$scope.show = false;
 						card.mount('#card-element')

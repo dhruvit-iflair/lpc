@@ -53,7 +53,7 @@
                             <li ng-class="{active: $state.includes('user.event')}"><a href="/event">Special Events</a></li>
                             <li ng-class="{active: $state.includes('user.about')}"><a href="/about">About</a></li>
                             <li ng-class="{active: $state.includes('user.contact')}"><a href="/contact">Contact</a></li>
-                            <li><a href="#store">Store</a></li>
+                            <li><a href="/default">Store</a></li>
                         </ul>
                     </nav>
                     <div class="my-account" ng-if="loggedIn">
@@ -67,3 +67,6 @@
         </div>
     </div>
 </header>
+<style>
+    a::hover{}
+</style>

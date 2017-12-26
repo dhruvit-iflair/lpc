@@ -1,7 +1,8 @@
 angular.module('inspinia')
 
-    .controller('addServiceCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addServiceCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
         
+        $loader.stop()
         $scope.serviceData = {};
         $scope.editService = false;
         $scope.title = 'Add Offered Services';

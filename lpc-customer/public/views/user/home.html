@@ -93,23 +93,26 @@
         </div>
     </div>
 
-    <!-- image slider -->
+    <br/><br/>
     <div class="image-blocks">
         <div class="container">
+            <ui-carousel slides="slides" on-init="onCarouselInit()" slides-to-show="3"
+                 slides-to-scroll="1">
             <div class="image-slider cf">
                 <div class="image-block">
-                    <img src="img/LPC-img-003.jpg" alt="">
-                </div>
-                <div class="image-block">
-                    <img src="img/LPC-img-004.jpg" alt="">
-                </div>
-                <div class="image-block">
-                    <img src="img/LPC-img-005.jpg" alt="">
-                </div>
-                <div class="image-block">
-                    <img src="img/LPC-img-004.jpg" alt="">
+                    <carousel-item>
+                        <img style="width: 100%; padding: 0 15px; height: 225px" 
+                            src="{{item.image}}" alt="Image" />
+                    </carousel-item>
+                    <carousel-prev>
+                        <button class="slicker-prev slicker-arrow" aria-label="Previous" type="button">Previous</button>
+                    </carousel-prev>    
+                    <carousel-next>
+                        <button class="slicker-next slicker-arrow" aria-label="Next" type="button">Next</button>
+                    </carousel-next>
                 </div>
             </div>
+            </ui-carousel>
         </div>
     </div>
 
@@ -142,5 +145,48 @@
             </form>
         </div>
     </div>
-
 </section>
+
+<style>
+    .slicker-arrow.slicker-prev:before { background-image: url(../img/leftarrow.svg);}
+    .slicker-arrow.slicker-next:before { background-image: url(../img/rightarrrow.svg);}
+    .slicker-arrow.slicker-prev {
+        left: -9px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .slicker-arrow.slicker-next {
+        right: -9px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .slicker-arrow {
+        position: absolute;
+        z-index: 1;
+        min-width: inherit;
+        padding: 0;
+        font-size: 0;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .slicker-arrow:before {
+        content: "";
+        width: 6px;
+        height: 11px;
+        position: absolute;    
+        top: 50%;
+        left: 50%;
+        margin: -5px 0 0 -3px;
+        background-repeat: no-repeat;
+    }
+    .slicker-arrow {
+        width: 24px;
+        height: 47px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+</style>

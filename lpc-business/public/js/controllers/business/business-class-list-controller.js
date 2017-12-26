@@ -1,6 +1,6 @@
 angular.module('inspinia')
     .controller('businessClassListCtrl', function($loader, env_var, $ngConfirm, $state, DTOptionsBuilder, $timeout, $scope, $rootScope, $http) {
-        
+    
         var url_string = window.location.href
         var url = new URL(url_string);
         
@@ -111,9 +111,7 @@ angular.module('inspinia')
                     action: function(scope,rootScope, button) {
                         $http.delete(env_var.apiUrl + '/class/' +$scope.classId)
                             .then(function(res) {
-                                $scope.months = [];
-                                getData()
-                                // $state.go('.', {}, {reload: true});
+                                $state.go('.', {}, {reload: 'user.buss.classlist'});
                             }, function(err) {
                                 console.log(err);
                             })

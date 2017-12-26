@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('addBannerCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
-        
+    .controller('addBannerCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+        $loader.stop()
         $scope.title = 'Add Banner';
         $scope.bannerData = {};
         $scope.imageLength;

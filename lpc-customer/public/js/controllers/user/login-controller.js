@@ -1,6 +1,8 @@
 angular.module('inspinia')
 
-    .controller('loginCtrl', function (env_var, $window, AuthInterceptor, toastr, $transitions, $scope, $rootScope, $http, $state, $location) {
+    .controller('loginCtrl', function ($loader, env_var, $window, AuthInterceptor, toastr, $transitions, $scope, $rootScope, $http, $state, $location) {
+        
+        $loader.stop()
         $scope.loginData = {};
         $scope.submit = function(loginData) {
             if(this.loginForm.$invalid) {

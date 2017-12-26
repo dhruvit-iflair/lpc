@@ -1,7 +1,8 @@
 angular.module('inspinia')
-    .controller('customerKidCtrl', function(env_var, toastr, $scope, $state, $rootScope, $http, $timeout) {
+    .controller('customerKidCtrl', function($loader, env_var, toastr, $scope, $state, $rootScope, $http, $timeout) {
         
-        // localStorage.removeItem('addKid')
+        $loader.stop()
+
         $scope.kidData = {}
         $scope.submit = function(kidData) {
             if(this.kidForm.$invalid) {

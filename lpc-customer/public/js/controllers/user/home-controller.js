@@ -1,15 +1,22 @@
 angular.module('inspinia')
-    .controller('homeCtrl', function (env_var, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
+    .controller('homeCtrl', function ($loader, env_var, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
         
         $http.get(env_var.bizApiUrl + '/cms').then(function(res) {
+            $loader.stop()
             $scope.cms = res.data;
             $scope.cmsId = true;
         })
 
-        $timeout(function() {
-            home()
-            equalheight('equal-height')
-        })
+        if($state.current.name == 'user.default') {
+            $timeout(function() {
+                home()
+                equalheight('equal-height')
+            })
+        }
+        
+        $scope.onCarouselInit = function() {
+            // console.log('carousel init');
+        }
 
         $scope.interval = 3000;
         $scope.slides = [
@@ -41,104 +48,74 @@ angular.module('inspinia')
         ]
 
         function home() {    
-            $(function($) {
-                var banner_title = $('.banner h1').text();
-                $('.banner h1').attr('data-content', banner_title);
-    
-                /* Image content */
-                $('.img-content-blocks .img-block').each(function () {
-                    var content_img = $(this).find('img').attr('src');
-                    $(this).css('background-image', 'url(' + content_img + ')');
-                });
-    
-                /* testimonials-slider slider script */
-                if ($('.testimonials-slider').length > 0) {
-                    $('.testimonials-slider').slick({
-                        autoplay: true,
-                        fade: true,
-                        speed: 500,
-                        //adaptiveHeight: true
-                    });
-                }
-    
-                /* classes-slider script */
-                if ($('.classes-slider').length > 0) {
-                    $('.classes-slider').slick({
-                        //autoplay: true,
-                        fade: true,
-                        speed: 500,
-                        //adaptiveHeight: true
-                    });
-                }
-
-                $(window).on('resize orientationchange', function() {
-                    $('.image-slider').slick('resize');
-                });
-
-                $(window).resize(function() {
-                    $('.image-slider').slick('resize');
-                });
-                
-                $(window).on('orientationchange', function() {
-                    $('.image-slider').slick('resize');
-                });
-
-                /* image-slider */
-                if ($('.image-slider').length > 0) {
-                    
-
-                    $('.image-slider').slick({
-                        slidesToShow: 3,
-                        slidesToScroll: 1,
-                        responsive: [
-                            {
-                                breakpoint: 641,
-                                settings: {
-                                    slidesToShow: 2,
-                                }
-                            },
-                            {
-                                breakpoint: 480,
-                                settings: {
-                                    slidesToShow: 1,
-                                }
-                            }
-                        ]
-                    });
-                }
+            var banner_title = document.querySelector('.banner h1')
+            banner_title.setAttribute('data-content', banner_title)
+            
+            var imageContent = document.querySelectorAll('.img-content-blocks .img-block')
+            Array.from(imageContent).forEach(function(el) {
+                var content_img = el.querySelector('img').getAttribute('src');
+                el.style.backgroundImage =  'url(' + content_img + ')';
             })
+
+            var testimonial = document.getElementsByClassName('testimonials-slider'); 
+            if(angular.element(testimonial).length > 0) {
+                angular.element(testimonial).slick({
+                    autoplay: true,
+                    fade: true,
+                    speed: 500
+                })
+            }
+
+            var classSlider = document.getElementsByClassName('classes-slider');
+            if(angular.element(classSlider).length > 0) {
+                angular.element(classSlider).slick({
+                    autoplay: true,
+                    fade: true,
+                    speed: 500
+                })
+            }
+            // window.addEventListener('resize orientationchange', function() {
+            //     document.querySelector('.image-slider').slick('resize')
+            // })
+            
+            // window.addEventListener('resize', function() {
+            //     document.querySelector('.image-slider').slick('resize')
+            // });
+            
+            // window.addEventListener('orientationchange', function() {
+            //     document.querySelector('.image-slider').slick('resize')
+            // });
         }
 
         function equalheight (container) {
-
             var currentTallest = 0,
                 currentRowStart = 0,
                 rowDivs = new Array(),
                 $el,
                 topPosition = 0;
-            jQuery(container).each(function () {
-        
-                $el = jQuery(this);
-                jQuery($el).height('auto')
-                topPostion = $el.position().top;
-        
-                if (currentRowStart != topPostion) {
+                
+            var eh = document.querySelectorAll('.' + container);
+            Array.from(eh).forEach(function(el) {
+                el.height = 'auto';
+                topPosition = el.style.position.top;
+
+                if (currentRowStart != topPosition) {
                     for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
                         rowDivs[currentDiv].height(currentTallest);
                     }
                     rowDivs.length = 0; // empty the array
-                    currentRowStart = topPostion;
-                    currentTallest = $el.height();
-                    rowDivs.push($el);
+                    currentRowStart = topPosition;
+                    currentTallest = el.height;
+                    rowDivs.push(el);
                 } else {
-                    rowDivs.push($el);
-                    currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+                    rowDivs.push(el);
+                    currentTallest = (currentTallest < el.height) ? (el.height) : (currentTallest);
                 }
                 for (currentDiv = 0; currentDiv < rowDivs.length; currentDiv++) {
-                    rowDivs[currentDiv].height(currentTallest);
+                    rowDivs[currentDiv].height = currentTallest;
                 }
-            });
-        }
+            })
+        }      
         
     })
     .filter('ashtml', function($sce) { return $sce.trustAsHtml; })

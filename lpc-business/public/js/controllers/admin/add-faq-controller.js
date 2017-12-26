@@ -1,6 +1,7 @@
 angular.module('inspinia')
-.controller('addfaqCtrl', function(env_var, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+.controller('addfaqCtrl', function($loader, env_var, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
     
+    $loader.stop()
     $scope.title = 'Add FAQ';
     $scope.faqData = {};
     $scope.editFAQ = false;

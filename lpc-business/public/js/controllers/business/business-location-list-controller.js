@@ -31,9 +31,9 @@ angular.module('inspinia')
                     text: 'Delete!',
                     btnClass: 'btn-red',
                     action: function(scope,rootScope, button) {
-                        $http.delete('http://146.185.138.139:7575/address/' +$scope.locationId)
+                        $http.delete(env_var.apiUrl + '/address/' +$scope.locationId)
                             .then(function(res) {
-                                getData()
+                                $state.go('.', {}, {reload: 'user.buss.locationlist'})
                             }, function(err) {
                                 toastr.error('Something went wrong')
                             })

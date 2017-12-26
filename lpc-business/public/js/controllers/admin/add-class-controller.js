@@ -1,7 +1,7 @@
 angular.module('inspinia')
 
-    .controller('addClassCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
-
+    .controller('addClassCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+        $loader.stop()
         $scope.title = 'Add Class';
         $scope.classData = {};
 

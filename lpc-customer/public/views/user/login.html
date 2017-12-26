@@ -15,13 +15,13 @@
         <div class="middle-box text-center loginscreen animated fadeInDown" style="float: right">
             <p>Login to LPC</p>
             <form id="lform" name="loginForm" class="m-t" role="form" ng-submit="submit(loginData)" novalidate>
-                <div class="form-group" ng-class="{'has-error': loginForm.Email.$touched || submitted && loginForm.Email.$invalid}">
+                <div class="form-group" ng-class="{'has-error': (loginForm.Email.$touched || submitted) && loginForm.Email.$invalid}">
                     <input type="email" name="Email" class="form-control" placeholder="Email" ng-model="loginData.email" required="">
                     <label class="errors" ng-show="(loginForm.Email.$touched || submitted) && loginForm.Email.$invalid">
                         Please enter email
                     </label>
                 </div>
-                <div class="form-group" ng-class="{'has-error': loginForm.Password.$touched || submitted && loginForm.Password.$invalid}">
+                <div class="form-group" ng-class="{'has-error': (loginForm.Password.$touched || submitted) && loginForm.Password.$invalid}">
                     <input type="password" class="form-control" placeholder="Password" name="Password" ng-model="loginData.password" required="">
                     <label class="errors" ng-show="(loginForm.Password.$touched || submitted) && loginForm.Password.$invalid">
                         Please enter passwordsty

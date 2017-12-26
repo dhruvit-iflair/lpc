@@ -1,8 +1,7 @@
 angular.module('inspinia')
-    .controller('homeCtrl', function ($loader, env_var, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
+    .controller('homeCtrl', function ($transitions, $loader, env_var, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
+        
         $loader.stop()
-        var url_string = window.location.href;
-        var url = new URL(url_string)
 
         $http.get(env_var.apiUrl + '/cms').then(function(res) {
             $scope.cms = res.data;
@@ -40,7 +39,7 @@ angular.module('inspinia')
             // console.log('carousel init');
         }
         
-        if(url.pathname == '/home') {
+        if($state.current.name == 'user.home') {
             $timeout(function() {
                 home()
                 equalheight('equal-height')

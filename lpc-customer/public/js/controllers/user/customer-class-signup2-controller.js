@@ -1,5 +1,5 @@
 angular.module('inspinia')
-.controller('customerClassSignup2Ctrl', function(env_var, $scope, $state, $rootScope, $http) {
+.controller('customerClassSignup2Ctrl', function($loader, env_var, $scope, $state, $rootScope, $http) {
     
     localStorage.removeItem('addKid')
     $scope.price;
@@ -8,6 +8,7 @@ angular.module('inspinia')
         // $scope.price = id.price
         $http.get(env_var.bizApiUrl + '/class/' + id.id)
             .then(function(res) {
+                $loader.stop()
                 $scope.class = res.data
             }, function(err) {
                 console.log(err)

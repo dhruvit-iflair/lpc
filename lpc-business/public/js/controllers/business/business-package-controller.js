@@ -1,6 +1,6 @@
 angular.module('inspinia')
-.controller('businessPackageCtrl', function(env_var, toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
-    
+.controller('businessPackageCtrl', function($loader, env_var, toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
+    $loader.stop();
     $scope.packageData = {};
     $scope.editPackage = false;
     $scope.title = 'Add Package';

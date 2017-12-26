@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerKidListCtrl', function(env_var, $ngConfirm, $scope, $state, $rootScope, $http) {
+    .controller('customerKidListCtrl', function($loader, env_var, $ngConfirm, $scope, $state, $rootScope, $http) {
         
         localStorage.removeItem('kidId');
         localStorage.removeItem('addKid')
@@ -8,6 +8,7 @@ angular.module('inspinia')
         function getData() {
             $http.get(env_var.apiUrl + '/getKidByUser/' +$rootScope.user._id)
                 .then(function(res) {
+                    $loader.stop()
                     $scope.kids = res.data;
                 }, function(err) {
                     $state.go('user.cust.kid')
@@ -34,7 +35,7 @@ angular.module('inspinia')
                         action: function(scope,rootScope, button) {
                             $http.delete(env_var.apiUrl + '/kid/' +$scope.kidId)
                                 .then(function(res) {
-                                    getData();
+                                    $state.go('.', {}, {reload: 'user.cust.kidlist'})
                                 }, function(err) {
                                     console.log(err);
                                 })

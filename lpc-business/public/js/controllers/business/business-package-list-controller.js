@@ -14,7 +14,6 @@ angular.module('inspinia')
             })
     }
     
-
     $scope.delete = function(index) {
         $scope.packageId = $scope.packages[index]._id; 
         $scope.packageName = $scope.packages[index].business_name; 
@@ -29,7 +28,7 @@ angular.module('inspinia')
                 action: function(scope,rootScope, button) {
                     $http.delete(env_var.apiUrl + '/package/' +$scope.packageId)
                         .then(function(res) {
-                            getData()
+                            $state.go('.', {}, {reload: 'user.buss.packagelist'})
                         }, function(err) {
                             console.log(err);
                         })

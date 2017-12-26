@@ -1,7 +1,8 @@
 angular.module('inspinia')
 
-    .controller('addCustomerCtrl', function(env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
+    .controller('addCustomerCtrl', function($loader, env_var, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams) {
             
+        $loader.stop()
         $scope.customerData = {};
         $scope.editCustomer = false;
         $scope.title = 'Add Customer';

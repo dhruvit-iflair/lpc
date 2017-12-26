@@ -52,7 +52,7 @@ angular.module('inspinia')
                         }
                     })
                     .then(function(res) {
-                        $state.go('user.home')
+                        $state.go('.', {}, {reload: 'user.buss.photo'})
                     }, function(err) {
                         console.log(err)
                     })
@@ -79,5 +79,9 @@ angular.module('inspinia')
                 }, function(err) {
                     console.log(err)
                 })
+        }
+
+        $scope.cancel = function() {
+            $state.go('user.home')
         }
     })

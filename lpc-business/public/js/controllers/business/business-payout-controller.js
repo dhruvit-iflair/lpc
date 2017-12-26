@@ -32,7 +32,7 @@ angular.module('inspinia')
                 $http.post(env_var.apiUrl + '/deleteAccount', data)
                     .then(function(res) {
                         if(res.data) {
-                            $state.go('user.home')
+                            $state.go('.', {}, {reload: 'user.buss.payout'})
                         }
                     }, function(err) {
                         console.log(err)

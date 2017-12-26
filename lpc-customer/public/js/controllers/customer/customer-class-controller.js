@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerClassCtrl', function(env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
+    .controller('customerClassCtrl', function($loader, env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
         
         $scope.custClasses = []
         allClasses()
@@ -8,6 +8,7 @@ angular.module('inspinia')
                 id: $rootScope.user._id}})
                 .then(function(res) {
                     if(res.data) {
+                        $loader.stop()
                         $scope.classes = res.data
                         for(var i= 0; i< $scope.classes._classId.length; i++) {
                             $scope.custClasses.push(res.data._classId[i])

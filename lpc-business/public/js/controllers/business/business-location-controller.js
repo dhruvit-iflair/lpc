@@ -1,6 +1,6 @@
 angular.module('inspinia')
-    .controller('businessLocationCtrl', function(env_var, $timeout, toastr, $http, $scope, $rootScope, $state) {
-        
+    .controller('businessLocationCtrl', function($loader, env_var, $timeout, toastr, $http, $scope, $rootScope, $state) {
+        $loader.stop();
         $scope.locationData = {};
 
         $scope.submit = function(locationData) {

@@ -1,6 +1,7 @@
 angular.module('inspinia')
-    .controller('addEmailCtrl', function(env_var, $transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
-    
+    .controller('addEmailCtrl', function($loader, env_var, $transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+        
+        $loader.stop()
         if($stateParams.id) {
             $scope.editEmail = true
             $http.get(env_var.apiUrl + '/email/' +$stateParams.id)

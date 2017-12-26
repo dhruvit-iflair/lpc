@@ -32,9 +32,6 @@ exports.create = function(req, res, next) {
                     if(err) return next(err);
                     res.json(all)
             })
-
-            console.log('Business already added photos')
-
         }
     })
 }

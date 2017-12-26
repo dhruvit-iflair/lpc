@@ -1,6 +1,7 @@
 angular.module('inspinia')
-    .controller('registerCtrl', function(env_var, toastr, $stateParams, $scope, $state, $http, $location, $rootScope) {
+    .controller('registerCtrl', function($loader, env_var, toastr, $stateParams, $scope, $state, $http, $location, $rootScope) {
         
+        $loader.stop()
         $scope.title = 'Register to LPC';
         $scope.registerData = {}
         $scope.profileData = {}

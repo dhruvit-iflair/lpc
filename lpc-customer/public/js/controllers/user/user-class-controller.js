@@ -6,7 +6,7 @@ angular.module('inspinia')
         email: 'u@me.com'
     })
 
-    .controller('userClassCtrl', function(env_var, $transitions, userOnline, appName, $scope, $rootScope, $state, $http, $timeout) {
+    .controller('userClassCtrl', function($loader, env_var, $transitions, userOnline, appName, $scope, $rootScope, $state, $http, $timeout) {
         
         $scope.address = $rootScope.user.street_address + ' ' + $rootScope.user.city + ' ' 
             + ' ' + $rootScope.user.zip + ', ' + $rootScope.user.state;
@@ -15,6 +15,7 @@ angular.module('inspinia')
         $http.get(env_var.bizApiUrl + '/class', {params: 
                 {id: $rootScope.user._id}})
             .then(function(res) {
+                $loader.stop()
                 $scope.currentDate = new Date().toISOString();
                 for(var i= 0; i< res.data.length; i++) {
                     if($scope.currentDate <= res.data[i].date) {

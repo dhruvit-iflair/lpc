@@ -1,5 +1,7 @@
 angular.module('inspinia')
-    .controller('addCMSCtrl', function(env_var, $transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+    .controller('addCMSCtrl', function($loader, env_var, $transition$, toastr, $timeout, $stateParams, $scope, $rootScope, $state, $http) {
+        
+        $loader.stop()
         var to = $transition$.to();
         $scope.title = 'Edit CMS'
         if($stateParams.id) {
