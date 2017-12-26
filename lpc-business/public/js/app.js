@@ -11,26 +11,39 @@ if(window) {
         'cp.ngConfirm',
         'toastr',
         'ngSanitize',
-        'uiRouterStyles'
+        'uiRouterStyles',
+        'ui.carousel',
+        'angular-ui-loader'
     ])
     
     .constant('env_var', env)
-   
-    .run(function($transitions, $state, $rootScope, $location, $timeout) {  
-        $transitions.onStart({},
-          function($transition) {
+    
+    .run(['Carousel', (Carousel) => {
+        Carousel.setOptions({});
+    }])
+
+    .run(function($transitions, $loader, $state, $rootScope, $location, $timeout) {  
+        $transitions.onStart({}, function($transition) {
+            $loader.startBackground()
             var st = $state.get()
             var auth = $transition.injector().get('AuthInterceptor');
             if(!auth.isLoggedIn()) {
                 $rootScope.loggedOut = true;
                 $rootScope.loggedIn = false;
+                if($transition.to().name === 'user.home') {
+                    $timeout(function() {
+                        $state.go('.')
+                    })
+                }
                 if($transition.to().access.restricted) {
                     $rootScope.restrictedAfterLogin = $transition.to().name;
                     var a = confirm('Please login to access this page');
                     if(a) {
-                        $state.go('login');
+                        $timeout(function() {
+                            $state.go('login');
+                        })
+                        return false;
                     }
-                    return false;
                 }
             }
             if(auth.isLoggedIn()) {
@@ -38,23 +51,39 @@ if(window) {
                 $rootScope.loggedOut = false;
                 if(($transition.to().name === 'login' || $transition.to().name === 'register')) {
                     if($rootScope.user.role_id == 0) {
-                        $state.go('index.dashboard');
+                        $timeout(function() {
+                            $state.go('index.dashboard');
+                        })
                     } else {
-                        $state.go('user.home');
+                        $timeout(function() {
+                            $state.go('user.home');  
+                            return false;
+                        })
                     }
-                    return false;
+                    // return false;
                 } 
             }
             
             if($transition.to().name == 'compreg' && !localStorage.getItem('business')) {
                 if(auth.isLoggedIn()) {
-                    $state.go('user.home')
+                    $timeout(function() {
+                        $state.go('user.home', {}, {reload: true})
+                    })
                 } else {
                     alert('Please signup first')
                     $state.go('login')
                 }
             }
-          });
+        });
+
+        $transitions.onSuccess({}, function($transition) {
+            // $loader.stop()
+        })
+
+        $transitions.onError({}, function($transition) {
+            $loader.stop()
+            // console.log('This is an error')
+        })
     })
   
 })();

@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('profileCtrl', function(env_var, $timeout, toastr, $state, $scope, $http, $rootScope) {
+    .controller('profileCtrl', function($loader, env_var, $timeout, toastr, $state, $scope, $http, $rootScope) {
         var id = $rootScope.user._id;
         $scope.profileData = {};
         $rootScope.services = [
@@ -12,6 +12,7 @@ angular.module('inspinia')
         
         $http.get(env_var.apiUrl + '/users/' + id)
             .then(function(res) {
+                $loader.stop()
                 if(res.data.role_id.title == 'business') {
                     $scope.business = true;
                 }

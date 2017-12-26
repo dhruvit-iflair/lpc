@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('businessLocationListCtrl', function(env_var, $ngConfirm, toastr, $http, $state, $scope, $rootScope, $state) {
+    .controller('businessLocationListCtrl', function($loader, env_var, $ngConfirm, toastr, $http, $state, $scope, $rootScope, $state) {
         
         localStorage.removeItem('addressId')
 
@@ -7,6 +7,7 @@ angular.module('inspinia')
         function getData() {
         $http.get(env_var.apiUrl + '/getAddressByUser/' +$rootScope.user._id)
             .then(function(res) {
+                $loader.stop()
                 $scope.addresses = res.data;
             }, function(err) {
                 $state.go('user.buss.classlist')
@@ -30,7 +31,7 @@ angular.module('inspinia')
                     text: 'Delete!',
                     btnClass: 'btn-red',
                     action: function(scope,rootScope, button) {
-                        $http.delete(env_var.apiUrl + '/address/' +$scope.locationId)
+                        $http.delete('http://146.185.138.139:7575/address/' +$scope.locationId)
                             .then(function(res) {
                                 getData()
                             }, function(err) {

@@ -1,8 +1,9 @@
 angular.module('inspinia')
 
-    .controller('businessListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('businessListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         $http.get(env_var.apiUrl + '/users')
             .then(function(res) {
+                $loader.stop()
                 $scope.business = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')
@@ -23,6 +24,7 @@ angular.module('inspinia')
                     }
                 ]); 
             }, function(err) {
+                $loader.stop()
                 console.log(err)
             })
 

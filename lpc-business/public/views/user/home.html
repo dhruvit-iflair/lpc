@@ -39,13 +39,24 @@
                     </div>
                 </div>
             </div>
-            <div class="classes-box equal-height">
+            <div class="classes-box equal-height" ng-if="userClass">
                 <div class="classes-box-inner classes-slider">
                     <div class="classes-box-content" ng-repeat="last in sideLast track by $index">
                         <h2>{{last.header}}</h2>
                         <p>{{last.p1}}</p>
                         <p><span>{{last.p2}}</span></p>
                         <p>{{last.p3}}</p>
+                        <a class="btn" href="#">Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <div class="classes-box equal-height" ng-if="!userClass">
+                <div class="classes-box-inner classes-slider">
+                    <div class="classes-box-content">
+                        <h2>Upcoming classes</h2>
+                        <p>Login to see dates</p>
+                        <p><span>Login to see your upcoming classes</span></p>
+                        <p>Login to see title</p>
                         <a class="btn" href="#">Schedule</a>
                     </div>
                 </div>
@@ -93,14 +104,25 @@
         </div>
     </div>
 
-    <!-- image slider -->
-    <div class="image-blocks">
+    <br/><br/>
+    <div class="image-blocks" ng-show="userClass">
         <div class="container">
+            <ui-carousel slides="slider.photos" on-init="onCarouselInit()" slides-to-show="3"
+                 slides-to-scroll="1">
             <div class="image-slider cf">
-                <div class="image-block" ng-repeat="photos in slider.photos track by $index">
-                    <img style="width: 100%; height: 225px" ng-src="/upload/{{photos}}" alt="">
+                <div class="image-block">
+                    <carousel-item>
+                        <img style="width: 100%; padding: 0 15px; height: 225px" src="/upload/{{ item }}" alt="Image" />
+                    </carousel-item>
+                    <carousel-prev>
+                        <button class="slicker-prev slicker-arrow" aria-label="Previous" type="button">Previous</button>
+                    </carousel-prev>    
+                    <carousel-next>
+                        <button class="slicker-next slicker-arrow" aria-label="Next" type="button">Next</button>
+                    </carousel-next>
                 </div>
             </div>
+            </ui-carousel>
         </div>
     </div>
 
@@ -133,5 +155,50 @@
             </form>
         </div>
     </div>
-
 </section>
+
+<!-- Style given seperately only for image-slider to not 
+to conflict with one in user-style.css -->
+<style>
+    .slicker-arrow.slicker-prev:before { background-image: url(../img/leftarrow.svg);}
+    .slicker-arrow.slicker-next:before { background-image: url(../img/rightarrrow.svg);}
+    .slicker-arrow.slicker-prev {
+        left: -9px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .slicker-arrow.slicker-next {
+        right: -9px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .slicker-arrow {
+        position: absolute;
+        z-index: 1;
+        min-width: inherit;
+        padding: 0;
+        font-size: 0;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .slicker-arrow:before {
+        content: "";
+        width: 6px;
+        height: 11px;
+        position: absolute;    
+        top: 50%;
+        left: 50%;
+        margin: -5px 0 0 -3px;
+        background-repeat: no-repeat;
+    }
+    .slicker-arrow {
+        width: 24px;
+        height: 47px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+</style>

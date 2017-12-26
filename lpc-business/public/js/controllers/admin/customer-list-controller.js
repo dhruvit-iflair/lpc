@@ -1,12 +1,13 @@
 angular.module('inspinia')
 
-    .controller('customerListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm, $window) {
+    .controller('customerListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm, $window) {
         
         // $scope.customers = []
         getCustomers();        
         function getCustomers() {
             $http.get(env_var.custApiUrl + '/customer')
             .then(function(res) {
+                $loader.stop();
                 $scope.customers = res.data;      
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')

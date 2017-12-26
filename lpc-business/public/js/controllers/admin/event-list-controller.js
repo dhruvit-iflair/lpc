@@ -1,9 +1,10 @@
 angular.module('inspinia')
 
-    .controller('eventListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('eventListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
         $http.get(env_var.apiUrl + '/event')
         .then(function(res) {
+            $loader.stop()
             $scope.event = res.data;
             $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDOM('<"html5buttons"B>lTfgitp')

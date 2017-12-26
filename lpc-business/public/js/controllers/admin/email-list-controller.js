@@ -1,11 +1,12 @@
 angular.module('inspinia')
 
-    .controller('emailListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('emailListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
         getemails();        
         function getemails() {
             $http.get(env_var.apiUrl + '/email')
             .then(function(res) {
+                $loader.stop()
                 $scope.emails = res.data;       
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')

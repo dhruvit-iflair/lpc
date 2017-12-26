@@ -1,10 +1,11 @@
 angular.module('inspinia')
-    .controller('CMSListCtrl', function(env_var, DTOptionsBuilder, toastr, $scope, $rootScope, $state, $http) {
+    .controller('CMSListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $scope, $rootScope, $state, $http) {
         
         getCMS();        
         function getCMS() {
             $http.get(env_var.apiUrl + '/cms')
             .then(function(res) {
+                $loader.stop()
                 $scope.cms = res.data;       
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')

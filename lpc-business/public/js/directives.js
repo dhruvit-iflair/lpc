@@ -265,25 +265,6 @@ angular
         }
     })
 
-    // .directive('birthDay', function() {
-    //     return {
-    //         link: function(scope, element) {
-    //             if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
-    //                 var datepicker = $.fn.datepicker.noConflict();
-    //                 $.fn.bootstrapDP = datepicker;
-    //             }
-    //             element.datepicker({
-    //                 maxDate: '-5y',
-    //                 changeYear: true,
-    //                 // changeMonth: true,
-    //                 yearRange: '-25y: maxDate',
-    //                 showOn: "focus"
-    //             })
-    //         }
-    //     }
-    // })
-    
-
     .directive('summerNote', function() {
         return {
             restrict: 'AE',
@@ -336,20 +317,4 @@ angular
             }
         }
     })
-
-    // .directive('ngConfirmClick', [
-    //     function() {
-    //         return {
-    //             link: function(scope, element, attr) {
-    //                 var msg = attr.ngConfirmClick || 'Are you sure?';
-    //                 var clickAction = attr.confirmedClick;
-    //                 element.bind('click', function(event) {
-    //                     if(window.confirm(msg)) {
-    //                         scope.$eval(clickAction);
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     }
-    // ])
 

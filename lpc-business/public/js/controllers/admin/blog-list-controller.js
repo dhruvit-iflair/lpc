@@ -1,11 +1,12 @@
 angular.module('inspinia')
 
-    .controller('blogListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('blogListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
         getblogs();        
         function getblogs() {
             $http.get(env_var.apiUrl + '/blog')
             .then(function(res) {
+                $loader.stop()
                 $scope.blogs = res.data;       
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')
@@ -26,6 +27,7 @@ angular.module('inspinia')
                     }
                 ]); 
             }, function(err) {
+                $loader.stop()
                 console.log(err);
             });
         }

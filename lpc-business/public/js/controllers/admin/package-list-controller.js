@@ -1,9 +1,10 @@
 angular.module('inspinia')
 
-    .controller('packageListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('packageListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
 
         $http.get(env_var.apiUrl + '/package')
             .then(function(res) {
+                $loader.stop()
                 $scope.packages = res.data
             }, function(err) {
                 console.log(err);

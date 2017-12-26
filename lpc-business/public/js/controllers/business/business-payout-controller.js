@@ -1,8 +1,9 @@
 angular.module('inspinia')
-    .controller('businessPayoutCtrl', function(env_var, $timeout, $scope, $state, $http, $rootScope, $window) {
+    .controller('businessPayoutCtrl', function($loader, env_var, $timeout, $scope, $state, $http, $rootScope, $window) {
         
         $http.get(env_var.apiUrl + '/getpayoutbyId', {params: {id: $rootScope.user._id}})
             .then(function(res) {
+                $loader.stop()
                 if(res.status == 200 ) {
                     $scope.businessId = true
                 }
@@ -26,11 +27,16 @@ angular.module('inspinia')
             id: $rootScope.user._id
         }
         $scope.deleteMe = function() {
-            $http.post(env_var.apiUrl + '/deleteAccount', data)
-                .then(function(res) {
-                    console.log(res.data)
-                }, function(err) {
-                    console.log(err)
-                })
+            var a = confirm('Are you sure to delete this account?')
+            if(a) {
+                $http.post(env_var.apiUrl + '/deleteAccount', data)
+                    .then(function(res) {
+                        if(res.data) {
+                            $state.go('user.home')
+                        }
+                    }, function(err) {
+                        console.log(err)
+                    })
+            }
         }
     })

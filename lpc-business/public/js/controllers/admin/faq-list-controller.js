@@ -1,8 +1,9 @@
 angular.module('inspinia')
 
-    .controller('faqListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('faqListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         $http.get(env_var.apiUrl + '/faq')
             .then(function(res) {
+                $loader.stop();
                 $scope.faq = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')

@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('businessPhotoCtrl', function(env_var, $scope, $rootScope, $http, $state) {
+    .controller('businessPhotoCtrl', function($loader, env_var, $scope, $rootScope, $http, $state) {
         
         $scope.photoData = {}
 
@@ -63,6 +63,7 @@ angular.module('inspinia')
         function getPhotos() {
             $http.get(env_var.apiUrl + '/bussphoto/' + $rootScope.user._id)
                 .then(function(res) {
+                    $loader.stop()
                     $scope.photos = res.data
                 }, function(err) {
                     console.log(err)

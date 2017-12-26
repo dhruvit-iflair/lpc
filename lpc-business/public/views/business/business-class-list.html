@@ -1,51 +1,50 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <div ng-if="status"  class="alert alert-success fade in" role="alert">
-                            <strong>Successfully updated Status</strong>
-                        </div>
-                        <h5>Class List</h5>
-                        <div style="float: right; margin-top: -10px">
-                            <button type="button" ui-sref="user.buss.class" class="btn btn-primary block m-b">Add Class</button>
-                        </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div ng-if="status"  class="alert alert-success fade in" role="alert">
+                        <strong>Successfully updated Status</strong>
                     </div>
-                    
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <select ng-model="selectedMonth" ng-init="selectedMonth = months[0].no"
-                                    ng-options="m.no as m.month for m in months">
-                                    <option value="">Select month</option>
-                                    <!-- <option value="{{m.no}}" ng-repeat="m in months">{{m.month}}</option> -->
-                                </select>
-                                <br><br>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                        <th>Class</th>
-                                        <th>Attendance</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="class in class | filter: selectedMonthFilter">
-                                        <td>{{ class.date | date: 'yyyy-MM-dd'}}</td>
-                                        <td>{{ class.time_from}} to {{class.time_to}}</td>
-                                        <td>{{ class.class_name}}</td>
-                                        <td>6 / 10</td>
-                                        <td>
-                                            <a ng-click="editBussClass(class)"><i class="fa fa-pencil"></i></a>
-                                            <a ng-click="delete(class)"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <h5>Class List</h5>
+                    <div style="float: right; margin-top: -10px">
+                        <button type="button" ui-sref="user.buss.class" class="btn btn-primary block m-b">Add Class</button>
+                    </div>
+                </div>
+                <div class="ibox-content" ></div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <select ng-model="selectedMonth" ng-init="selectedMonth = months[0].no"
+                                ng-options="m.no as m.month for m in months">
+                                <option value="">Select month</option>
+                                <!-- <option value="{{m.no}}" ng-repeat="m in months">{{m.month}}</option> -->
+                            </select>
+                            <br><br>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Class</th>
+                                    <th>Attendance</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="class in class | filter: selectedMonthFilter">
+                                    <td>{{ class.date | date: 'yyyy-MM-dd'}}</td>
+                                    <td>{{ class.time_from}} to {{class.time_to}}</td>
+                                    <td>{{ class.class_name}}</td>
+                                    <td>6 / 10</td>
+                                    <td>
+                                        <a ng-click="editBussClass(class)"><i class="fa fa-pencil"></i></a>
+                                        <a ng-click="delete(class)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

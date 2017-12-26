@@ -1,5 +1,5 @@
 angular.module('inspinia')
-.controller('businessPackageListCtrl', function(env_var, DTOptionsBuilder, toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
+.controller('businessPackageListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $ngConfirm, $state, $timeout, $scope, $rootScope, $http) {
     
     localStorage.removeItem('packageId');
     
@@ -7,6 +7,7 @@ angular.module('inspinia')
     function getData() {
         $http.get(env_var.apiUrl + '/getUserPackage/' + $rootScope.user._id)
             .then(function(res) {
+                $loader.stop()
                 $scope.packages = res.data
             }, function(err) {
                 console.log(err);

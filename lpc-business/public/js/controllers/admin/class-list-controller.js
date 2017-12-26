@@ -1,9 +1,10 @@
 angular.module('inspinia')
 
-    .controller('classListCtrl', function(env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
+    .controller('classListCtrl', function($loader, env_var, DTOptionsBuilder, toastr, $timeout, $scope, $http, $rootScope, $state, $stateParams, $ngConfirm) {
         
         $http.get(env_var.apiUrl + '/class')
             .then(function(res) {
+                $loader.stop();
                 $scope.class = res.data;
                 $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDOM('<"html5buttons"B>lTfgitp')

@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('businessClassListCtrl', function(env_var, $ngConfirm, $state, DTOptionsBuilder, $timeout, $scope, $rootScope, $http) {
+    .controller('businessClassListCtrl', function($loader, env_var, $ngConfirm, $state, DTOptionsBuilder, $timeout, $scope, $rootScope, $http) {
         
         var url_string = window.location.href
         var url = new URL(url_string);
@@ -27,9 +27,10 @@ angular.module('inspinia')
 
         $scope.dtInstance = {}; 
         getData()
-        function getData() {       
+        function getData() {     
             $http.get(env_var.apiUrl + '/getUserClass/' + $rootScope.user._id)
             .then(function(res) {
+                $loader.stop()
                 $scope.class = res.data;
                 $scope.dtOptions = {
                     // searching: false

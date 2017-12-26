@@ -149,10 +149,17 @@ exports.getClassByBusinessName = function(req, res, next) {
 }
 
 exports.getUserClass = function(req, res, next) {
+    var all_classes = [];
+    var currentDate = new Date();
     Class.find({_businessId: req.params.id})
         .populate('_businessId')
         .exec(function(err, classes) {
             if(err) return next(err);
-            res.json(classes)
+            for(var i= 0; i< classes.length; i++) {
+                if(classes[i].date >= currentDate) {
+                    all_classes.push(classes[i])    
+                }
+            }
+            res.json(all_classes)
     })
 }
