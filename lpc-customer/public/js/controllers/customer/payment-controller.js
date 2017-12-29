@@ -1,7 +1,11 @@
 angular.module('inspinia')
     .controller('paymentCtrl', function($loader, env_var, $timeout, $stateParams, $state, $http, $rootScope, $scope) {
 
-		var stripe = Stripe('pk_test_WJtbVCYgAug1F2FLBetlecXq');
+		// localStorage.removeItem('classSignupId');
+		if(!localStorage.getItem('classSignupId')) {
+			$state.go('user.class')
+		} else {
+			var stripe = Stripe('pk_test_WJtbVCYgAug1F2FLBetlecXq');
 		var elements = stripe.elements();
 		$scope.addCard = false
 		$scope.inp = {}
@@ -61,6 +65,7 @@ angular.module('inspinia')
 			if(this.payForm.$invalid) {
 				alert('Please fill all the details')
 			} else {
+				$loader.startBackground()
 				var extraDetails = {
 					name: document.querySelector('input[name=cardholder-name]').value
 				};
@@ -88,6 +93,7 @@ angular.module('inspinia')
 							
 								$http.post(env_var.bizApiUrl + '/charge', data, {params: {kids}})
 									.then(function(res) {
+										$loader.stop()
 										if(res.data) {
 											alert(res.data)
 											$state.go('user.class')
@@ -110,6 +116,7 @@ angular.module('inspinia')
 								}
 								$http.post(env_var.bizApiUrl + '/savePayment', data, {params: {kids}})
 									.then(function(res) {
+										$loader.stop()
 										if(res.data) {
 											alert(res.data)
 											$state.go('user.class')
@@ -123,7 +130,10 @@ angular.module('inspinia')
 			}				
 		}
 
+		}
+		
 		$scope.savedCard = function(c) {
+			$loader.startBackground()
 			var data = {
 				amount: classId.price,
 				currency: 'usd',
@@ -142,6 +152,7 @@ angular.module('inspinia')
 			
 			$http.post(env_var.bizApiUrl + '/chargeSavedCard', data, {params: {kids}})
 				.then(function(res) {
+					$loader.stop()
 					if(res.data) {
 						alert(res.data)
 						$state.go('user.class')
@@ -155,7 +166,6 @@ angular.module('inspinia')
 			$http.delete(env_var.bizApiUrl + '/deleteCard/' + cards._id)
 				.then(function(res) {
 					getMe()
-					console.log(res.data)
 				}, function(err) {
 					console.log(err)
 				})

@@ -7,7 +7,7 @@ angular.module('inspinia')
     })
 
     .controller('userClassCtrl', function($loader, env_var, $transitions, userOnline, appName, $scope, $rootScope, $state, $http, $timeout) {
-        
+        localStorage.removeItem('classSignupId')        
         $scope.address = $rootScope.user.street_address + ' ' + $rootScope.user.city + ' ' 
             + ' ' + $rootScope.user.zip + ', ' + $rootScope.user.state;
         

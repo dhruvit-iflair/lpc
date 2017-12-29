@@ -97,11 +97,11 @@
                                 <label class="col-sm-2">Zip*</label>
                                 <div class="col-sm-10">
                                     <input id="profile_zip" class="form-control" name="Zipcode" 
-                                        type="text" pattern="" maxlength="6" ng-model="profileData.zip" ng-trim="false" required number-length>
+                                        type="text" pattern="" maxlength="6" minlength="4" ng-model="profileData.zip" ng-trim="false" required number-length>
                                     <p class="errors" ng-show="(profileForm.Zipcode.$touched || submitted) && profileForm.Zipcode.$error.required">
                                         Please enter zipcode
                                     </p>
-                                    <p class="errors" ng-show="profileForm.Zipcode.$error.pattern">
+                                    <p class="errors" ng-show="profileForm.Zipcode.$error.minlength">
                                         Zipcode should not be less then 4 digits
                                     </p>
                                 </div>

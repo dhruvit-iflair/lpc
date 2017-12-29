@@ -26,7 +26,6 @@ angular.module('inspinia')
             }
             else {
                 $scope.submitted = false;
-                console.log(registerData);
                 $http.post(env_var.apiUrl + '/businessEmail', registerData)
                     .then(function(res) {
                         if(res.data === 'Email already exists') {
@@ -77,7 +76,6 @@ angular.module('inspinia')
 
         var file = document.getElementById('fileId');
         $scope.myFiles = function($files) {
-            console.log(file)
             var files = file.value.split('.').pop();
             if(!$files[0]) {
                 $scope.imageLength = undefined;

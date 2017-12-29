@@ -88,8 +88,14 @@ exports.update = function(req, res, next) {
 
     User.findByIdAndUpdate({_id: req.params.id}, doc, {new: true},
         function(err, user) {
-            if(err) return next(err);
-            res.json(user)
+            if(err) { return next(err); }
+            else {
+                var token = user.generateJwt();
+                res.json({
+                    token: token
+                })
+            }
+            //res.json(user)
     })
 }
 

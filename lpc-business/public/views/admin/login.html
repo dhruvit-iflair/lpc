@@ -116,12 +116,12 @@
                 <div class="col-sm-6">
                     <div class="form-group" ng-class="{ 'has-error' : (registerForm.Zipcode.$touched || submitted) && registerForm.Zipcode.$invalid }">
                         <input id="customer_zip" class="form-control" name="Zipcode" 
-                            type="text" placeholder="Zipcode" pattern="[0-9]{6}" maxlength="6" ng-model="registerData.zip" ng-trim="false" required number-length>
+                            type="text" placeholder="Zipcode" minlength="4" maxlength="6" ng-model="registerData.zip" ng-trim="false" required number-length>
                         <label class="errors" ng-show="(registerForm.Zipcode.$touched || submitted) && registerForm.Zipcode.$error.required">
                             Please enter zipcode
                         </label>
-                        <label class="errors" ng-show="registerForm.Zipcode.$error.pattern">
-                            Zipcode should be of 6 digits
+                        <label class="errors" ng-show="registerForm.Zipcode.$error.minlength">
+                            Zipcode should not be less then 4 digits
                         </label>
                     </div>
                 </div>

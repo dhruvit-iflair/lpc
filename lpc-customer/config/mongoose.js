@@ -4,7 +4,9 @@ var config = require('./config'),
 
 module.exports = function() {
 	mongoose.Promise = global.Promise;
-	var conn = mongoose.connect(config.db);
+	var conn = mongoose.connect(config.db, {
+		useMongoClient: true
+	});
 	
 	require('../server/models/customer-model');
 	require('../server/models/kid-model');

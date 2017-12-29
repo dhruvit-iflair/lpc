@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Class = mongoose.model('Class');
     User = mongoose.model('User');
     Payment = mongoose.model('Payment');
-    CustomerSignedClasses = mongoose.model('CustomerSignedClasses')
+    CustomerSignedClasses = mongoose.model('CustomerSignedClasses');
     _ = require('underscore')
     
 exports.create = function(req, res, next) {

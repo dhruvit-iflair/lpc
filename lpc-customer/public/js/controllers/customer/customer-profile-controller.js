@@ -1,5 +1,5 @@
 angular.module('inspinia')
-    .controller('customerProfileCtrl', function($loader, env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
+    .controller('customerProfileCtrl', function ($window, $loader, env_var, AuthInterceptor, $state, $scope, $rootScope, $http, toastr, $timeout) {
         
         var id = $rootScope.user._id;
         $scope.profileData = {};
@@ -30,6 +30,14 @@ angular.module('inspinia')
                         $scope.saved = true;
                         document.getElementById('profile_form').reset();
                         toastr.success('Data updated successfully')
+                        
+                        var payload;
+                        AuthInterceptor.saveToken(res.data.token);
+                        $rootScope.logData = AuthInterceptor.getToken();
+                        payload = $rootScope.logData.split('.')[1];
+                        payload = $window.atob(payload);
+                        payload = JSON.parse(payload);
+                        
                         $timeout(function() {
                             $state.go('user.default')
                         }, 3000)

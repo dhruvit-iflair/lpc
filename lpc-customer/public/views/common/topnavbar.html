@@ -13,7 +13,7 @@
                         </span>
                         <span class= "dropdown">
                             <span data-toggle="dropdown" class="user-name">
-                                <a href="#"><span>{{customer}}</span></a>
+                                <a href="#"><span>{{user.firstname + ' ' + user.lastname}}</span></a>
                             </span>
                             <ul class="dropdown-menu" style="color:black">
                                 <li><a href="#">First one</a></li>
@@ -24,8 +24,9 @@
                     </div>
                 </div>
             </div>
-            <div class="my-classes">
-                <p>My Next Booked Class: This Friday at 6pm <a href="#">My Classes</a></p>
+            <div class="my-classes" ng-if="a">
+                <p>My Next Booked Class: This {{ blogPosts[0].day }} at {{ blogPosts[0].time }} 
+                    <a ui-sref="user.cust.class">My Classes</a></p>
             </div>
         </div>
     </div>

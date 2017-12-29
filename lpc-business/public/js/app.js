@@ -32,7 +32,7 @@ if(window) {
                 $rootScope.loggedIn = false;
                 if($transition.to().name === 'user.home') {
                     $timeout(function() {
-                        $state.go('.')
+                        $state.go('user.home')
                     })
                 }
                 if($transition.to().access.restricted) {

@@ -15,7 +15,27 @@ angular.module('inspinia')
     }
 
     if($rootScope.user) {
-        $scope.customer = $rootScope.user.firstname + ' ' + $rootScope.user.lastname;
+        $scope.dates = []
+        $http.get(env_var.apiUrl + '/getUserClass/' + $rootScope.user._id)
+            .then(function(res) {
+                if(res.data.length != 0) {
+                    $scope.a = true
+                    for(var i= 0; i< res.data.length; i++) {
+                        $scope.dates.push({
+                            'day': moment(res.data[i].date).format('dddd'),
+                            'date': res.data[i].date,
+                            'time': res.data[i].time_from,
+                        })
+                    }
+                    $scope.day = $scope.dates.sort(function(a, b) {
+                        return new Date(a.date) - new Date(b.date)
+                    })
+                } else {
+                    $scope.a = false
+                }
+            }, function(err) {
+                console.log(err)
+            })    
     }
 
     $scope.logout = function() {

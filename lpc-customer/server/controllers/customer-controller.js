@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
 
 exports.create = function(req, res, next) {
     var customer = new Customer(req.body);
-
     Customer.findOne({email: req.body.email}, function(err, doc) {
         if(err) return next(err);
         if(!doc) {
@@ -47,8 +46,14 @@ exports.update = function(req, res, next) {
     customer.password = customer.generateHash(customer.password);
     Customer.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true}, 
         function(err, customer) {
-            if(err) return next(err);
-            res.json(customer);
+            if(err) { return next(err) }
+            else {
+                var token = customer.generateJwt();
+                res.json({
+                    token: token
+                })
+            }
+            // res.json(customer);
         })
 }
 
@@ -69,6 +74,30 @@ exports.updateStatus = function(req, res) {
             });
         } else {
             res.send('Something went wrong');
+        }
+    })
+}
+
+exports.login = function(req, res, next) {
+    Customer.findOne({email: req.body.email}, function(err, user) {
+        if(err) return next(err);
+        if(user) {
+            if(!user.email) {
+                return res.status(401).json({message: "No user found"})
+            } 
+            else if(user.email) {
+            if(!user.validPassword(req.body.password)) {
+                    return res.status(401).json({message: "Invalid password"})
+                } 
+                else {
+                    var token = user.generateJwt();
+                    res.json({
+                        token: token
+                    })
+                }
+            }
+        } else {
+            return res.status(401).json({message: "Invalid credentials"})
         }
     })
 }

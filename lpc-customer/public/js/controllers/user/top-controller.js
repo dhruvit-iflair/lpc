@@ -6,7 +6,7 @@ angular.module('inspinia')
         $scope.cms = res.data;
         $scope.cmsId = true;
     })
-
+    var currentDate = new Date()
     top();
     
     $scope.userLogin = function() {
@@ -14,9 +14,36 @@ angular.module('inspinia')
         $state.go('login');
     }
 
+    $scope.dates = []
     if($rootScope.user) {
-        $scope.customer = $rootScope.user.firstname + ' ' + $rootScope.user.lastname;
+        $http.get(env_var.bizApiUrl + '/signedCustomer', {params: {
+            id: $rootScope.user._id}})
+            .then(function(res) {
+                if(res.data != null) {
+                    $scope.a = true
+                    for(var i= 0; i< res.data._classId.length; i++) {
+                        if(res.data._classId[i].classes.date > currentDate.toISOString()) {
+                            $scope.dates.push({
+                                'day': moment(res.data._classId[i].classes.date).format('dddd'),
+                                'date': res.data._classId[i].classes.date,
+                                'time': res.data._classId[i].classes.time_from
+                            })
+                        }
+                    }
+                    $scope.blogPosts = $scope.dates.sort(function(a, b) {
+                        return new Date(a.date) - new Date(b.date)
+                    })
+                } else {
+                    $scope.a = false
+                }
+                
+            }, function(err) {
+                console.log(err)
+            })
     }
+    // if($rootScope.user) {
+    //     $scope.customer = $rootScope.user.firstname + ' ' + $rootScope.user.lastname;
+    // }
 
     $scope.logout = function() {
         AuthInterceptor.logout();

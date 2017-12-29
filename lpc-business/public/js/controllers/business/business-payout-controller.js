@@ -1,9 +1,9 @@
 angular.module('inspinia')
     .controller('businessPayoutCtrl', function($loader, env_var, $timeout, $scope, $state, $http, $rootScope, $window) {
-        
+        $loader.stop()
         $http.get(env_var.apiUrl + '/getpayoutbyId', {params: {id: $rootScope.user._id}})
             .then(function(res) {
-                $loader.stop()
+                // $loader.stop()
                 if(res.status == 200 ) {
                     $scope.businessId = true
                 }

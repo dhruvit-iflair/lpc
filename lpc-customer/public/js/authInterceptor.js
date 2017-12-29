@@ -49,7 +49,6 @@ angular.module('inspinia')
                 })
         }
 
-
         function currentUser() {
             if(isLoggedIn()) {
                 var token = getToken();

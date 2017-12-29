@@ -7,8 +7,8 @@ angular.module('inspinia')
             $http.get(env_var.bizApiUrl + '/signedCustomer', {params: {
                 id: $rootScope.user._id}})
                 .then(function(res) {
+                    $loader.stop()
                     if(res.data) {
-                        $loader.stop()
                         $scope.classes = res.data
                         for(var i= 0; i< $scope.classes._classId.length; i++) {
                             $scope.custClasses.push(res.data._classId[i])
@@ -20,12 +20,14 @@ angular.module('inspinia')
         }
         
         $scope.deleteClass = function(index) {
+            $loader.startBackground()
             var customer_id = $scope.classes._id
             var class_id = $scope.custClasses[index].classes._id;
             var i = confirm('Are you sure to delete this class');
             if(i) {
                 $http.get(env_var.bizApiUrl + '/deleteclass', {params:{customer_id, class_id}})
                     .then(function(res) {
+                        $loader.stop()
                         $scope.custClasses.splice(index,1);
                         alert('You will be refunded soon !!!')
                     }, function(err) {

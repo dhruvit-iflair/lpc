@@ -33,11 +33,6 @@ angular.module('inspinia')
                 payload = $window.atob(payload);
                 payload = JSON.parse(payload);
                 $rootScope.user = payload;
-                // $http.get('/role/' +payload.role_id)
-                //     .then(function(res) {
-                //         localStorage.setItem('role', res.data.title);
-                //     })
-                
                 return payload.exp > Date.now() / 1000;
             } else {
                 return false
