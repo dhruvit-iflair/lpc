@@ -7,11 +7,11 @@ angular.module('inspinia')
         var currentDate = new Date();
 
         $http.get(env_var.apiUrl + '/getAddressByUser/' +$rootScope.user._id)
-            .then(function(res) {
+            .then(function(res) {   
                 for(var i= 0; i< res.data.length; i++) {
                     $scope.address.push({
-                        'id': res.data[i]._id,
-                        'address': res.data[i].address
+                        _id: res.data[i]._id,
+                        address: res.data[i].address
                     })
                 }
             }, function(err) {
@@ -96,7 +96,6 @@ angular.module('inspinia')
             }
         }
 
-        
         $scope.checkDate = function(classData) {
             $scope.dateError = false
             if(classData.date != undefined) {
@@ -168,7 +167,6 @@ angular.module('inspinia')
                             $scope.checkSelection.push(res.data.day[i])
                         }
                     }
-                    
                 }, function(err) {
                     $state.go('user.buss.classlist')
                 })

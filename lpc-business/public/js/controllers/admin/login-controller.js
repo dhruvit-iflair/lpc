@@ -47,7 +47,11 @@ angular.module('inspinia')
                             document.getElementById('lform').reset();
                         }
                     }, function(err) {
-                        toastr.error('Please enter correct details!')
+                        console.log(err)
+                        // if(err) {
+                        //     console.log(err.status + ' ' + err.data.message)
+                        // }
+                        toastr.error(err.data.message)
                     })
             }   
         }

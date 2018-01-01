@@ -1,17 +1,17 @@
 angular.module('inspinia')
     .controller('customerClassCtrl', function($loader, env_var, $state, $scope, $rootScope, $http, toastr, $timeout) {
-        
+
         $scope.custClasses = []
         allClasses()
         function allClasses() {
+            $loader.stop()
             $http.get(env_var.bizApiUrl + '/signedCustomer', {params: {
                 id: $rootScope.user._id}})
                 .then(function(res) {
-                    $loader.stop()
                     if(res.data) {
-                        $scope.classes = res.data
-                        for(var i= 0; i< $scope.classes._classId.length; i++) {
-                            $scope.custClasses.push(res.data._classId[i])
+                        $scope.classes = res.data;
+                        for(var i= 0; i< $scope.classes.length; i++) {
+                            $scope.custClasses.push($scope.classes[i])
                         }
                     }
                 }, function(err) {

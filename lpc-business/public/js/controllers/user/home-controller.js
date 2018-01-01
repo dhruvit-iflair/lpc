@@ -10,19 +10,22 @@ angular.module('inspinia')
         
         $scope.sideLast = [];
         if($rootScope.user) {
-            $rootScope.userClass = true
             $scope.interval = 3000;
-            $http.get(env_var.apiUrl + '/getUserClass/' + $rootScope.user._id)
+            $http.get(env_var.apiUrl + '/getcustomerclass/' + $rootScope.user._id)
                 .then(function(res) {
-                    $scope.all = res.data;
-                    for(var i= 0; i< $scope.all.length; i++) {
-                        $scope.sideLast.push({
-                            header: 'Upcoming Classes',
-                            p1: moment($scope.all[i].date).format("D MMMM YYYY"),
-                            p2: $scope.all[i].time_from + ' to ' + $scope.all[i].time_to,
-                            p3: $scope.all[i].class_name
-                        })
+                    if(res.data.length != 0) {
+                        $rootScope.userClass = true
+                        $scope.all = res.data;
+                        for(var i= 0; i< $scope.all.length; i++) {
+                            $scope.sideLast.push({
+                                header: 'Upcoming Classes',
+                                p1: moment($scope.all[i].date).format("D MMMM YYYY"),
+                                p2: $scope.all[i].time_from + ' to ' + $scope.all[i].time_to,
+                                p3: $scope.all[i].class_name
+                            })
+                        }
                     }
+                    
                 }, function(err) {
                     console.log(err)
                 })

@@ -156,7 +156,7 @@ exports.getUserClass = function(req, res, next) {
         .exec(function(err, classes) {
             if(err) return next(err);
             for(var i= 0; i< classes.length; i++) {
-                if(classes[i].date >= currentDate) {
+                if(classes[i].date > currentDate) {
                     all_classes.push(classes[i])    
                 }
             }

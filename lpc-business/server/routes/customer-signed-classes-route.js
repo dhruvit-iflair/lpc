@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
 
 module.exports = function(app) {
     app.get('/signedCustomer', function(req, res) {
+        var currentDate = new Date();
+        var all_classes = []
         CustomerSignedClasses.findOne({_customerId: req.query.id})
             .populate({
                 path: '_classId.classes',
@@ -13,9 +15,17 @@ module.exports = function(app) {
                     path: '_businessId'
                 }
             })
-            .exec(function(err, docs) {
-                if(err) res.send(err)
-                res.json(docs)
+            .exec(function(err, classes) {
+                if(err) res.send(err);
+                if(classes != null) {
+                    j = classes._classId
+                    for(var i= 0; i< j.length; i++) {
+                        if(j[i].classes.date > currentDate) {
+                            all_classes.push(j[i])    
+                        }
+                    }
+                    res.send(all_classes)
+                }
             })
     })
 
@@ -80,4 +90,23 @@ module.exports = function(app) {
             }            
         })
     });
+
+    app.get('/getcustomerclass/:customerId', function(req, res) {
+        var all_classes = [];
+        var currentDate = new Date();
+        CustomerSignedClasses.findOne({_customerId: req.params.customerId})
+            .populate('_classId.classes')
+            .exec(function(err, classes) {
+                if(err) return (err);
+                if(classes != null) {
+                    j = classes._classId
+                    for(var i= 0; i< j.length; i++) {
+                        if(j[i].classes.date > currentDate) {
+                            all_classes.push(j[i])    
+                        }
+                    }
+                    res.send(all_classes)
+                }
+        })
+    })
 }

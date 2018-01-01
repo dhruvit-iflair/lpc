@@ -10,7 +10,7 @@ angular.module('inspinia')
                 $scope.currentDate = new Date().toISOString();
                 // For removing dates past current date
                 for(var i= 0; i< res.data.length; i++) {
-                    if($scope.currentDate <= res.data[i].date) {
+                    if(res.data[i].date > $scope.currentDate) {
                         $scope.classes.push(res.data[i])
                     }
                 }

@@ -25,7 +25,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $locati
             name: 'dashboard',
             url: "/admin/dashboard",
             templateUrl: "views/dashboard.html",
-            access: {restricted: true, admin: true}
+            access: {restricted: true, admin: true},
+            controller: function($scope, $loader) {
+                $loader.stop()
+            }
         })
         .state('index.minor', {
             name: 'index.minor',

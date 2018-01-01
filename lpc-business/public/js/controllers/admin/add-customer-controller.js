@@ -30,7 +30,7 @@ angular.module('inspinia')
             if(this.customerForm.$invalid) {
                 $scope.submitted = true;
             } else {
-                $http.post(env_var.apiUrl + '/customer', customerData)
+                $http.post(env_var.custApiUrl + '/customer', customerData)
                     .then(function(res) {
                         if(res.data === 'Email already exists') {
                             //alert(res.data)
@@ -56,7 +56,7 @@ angular.module('inspinia')
         if($stateParams.id) {
             $scope.editCustomer = true;
             $scope.title = 'Edit Customer'
-            $http.get(env_var.apiUrl + '/customer/' +$stateParams.id)
+            $http.get(env_var.custApiUrl + '/customer/' +$stateParams.id)
                 .then(function(res) {
                     $scope.customerData = res.data;
                     $scope.customerData.password = null;
@@ -71,7 +71,7 @@ angular.module('inspinia')
             if(this.customerForm.$invalid) {
                 $scope.submitted = true
             } else {
-                $http.put(env_var.apiUrl + '/customer/' +$stateParams.id, customerData)
+                $http.put(env_var.custApiUrl + '/customer/' +$stateParams.id, customerData)
                     .then(function(res) {
                         $scope.saved = true;
                         $scope.submitted = false;

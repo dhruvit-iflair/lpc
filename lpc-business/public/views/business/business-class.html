@@ -51,10 +51,10 @@
                             </div>
                         </div>
                         
-                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Duplicate.$touched || submitted) && classForm.Duplicate.$invalid }">
+                        <div class="form-group" ng-class="{ 'has-error' : (classForm.Location.$touched || submitted) && classForm.Location.$invalid }">
                             <label class="col-sm-2">Location*</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="Location" ng-model="classData.location" ng-options="a.id as a.address for a in address" required>
+                                <select class="form-control" name="Location" ng-model="classData.location" ng-options="a._id as a.address for a in address track by a._id" required>
                                     <option value="">Select Address</option>
                                 </select>
                                 <p class="errors" ng-show="(classForm.Location.$touched || submitted) && classForm.Location.$invalid">
@@ -63,18 +63,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group" ng-class="{ 'has-error' : (classForm.Location.$touched || submitted) && classForm.Location.$invalid }">
-                            <label class="col-sm-2">Location*</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name="Location" type="text" ng-model="classData.location" maxlength="70" minlength="5" required>
-                                <p class="errors" ng-show="(classForm.Location.$touched || submitted) && classForm.Location.$error.required">
-                                    Please enter location
-                                </p>
-                                <p class="errors" ng-show="(classForm.Location.$touched || submitted) && classForm.Location.$error.minlength">
-                                    Length should be greater than 5
-                                </p>
-                            </div>
-                        </div> -->
                         <div class="form-group" ng-class="{ 'has-error' : (classForm.Duplicate.$touched || submitted) && classForm.Duplicate.$invalid }">
                             <label class="col-sm-2">Duplicate*</label>
                             <div class="col-sm-10">
@@ -86,6 +74,7 @@
                                 </p>
                             </div>
                         </div>
+                        
                         <div class="form-group" ng-if="showWeek" ng-class="{ 'has-error' : (classForm.Every.$touched || submitted) && classForm.Every.$invalid }">
                             <label class="col-sm-2">Every*</label>
                             <div class="col-sm-10">

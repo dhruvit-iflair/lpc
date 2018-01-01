@@ -21,12 +21,12 @@ angular.module('inspinia')
             .then(function(res) {
                 if(res.data != null) {
                     $scope.a = true
-                    for(var i= 0; i< res.data._classId.length; i++) {
-                        if(res.data._classId[i].classes.date > currentDate.toISOString()) {
+                    for(var i= 0; i< res.data.length; i++) {
+                        if(res.data[i].classes.date > currentDate.toISOString()) {
                             $scope.dates.push({
-                                'day': moment(res.data._classId[i].classes.date).format('dddd'),
-                                'date': res.data._classId[i].classes.date,
-                                'time': res.data._classId[i].classes.time_from
+                                'day': moment(res.data[i].classes.date).format('dddd'),
+                                'date': res.data[i].classes.date,
+                                'time': res.data[i].classes.time_from
                             })
                         }
                     }

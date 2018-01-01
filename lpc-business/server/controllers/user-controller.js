@@ -136,7 +136,7 @@ exports.login = function(req, res) {
         if(err) return next(err);
         if(user) {
             if(!user.email) {
-                return res.status(401).json({message: "No user found"})
+                return res.status(401).json({message: "Invalid email address"})
             } 
             else if(user.email) {
             if(!user.validPassword(req.body.password)) {
@@ -150,7 +150,7 @@ exports.login = function(req, res) {
                 }
             }
         } else {
-            return res.status(401).json({message: "Invalid credentials"})
+            return res.status(401).json({message: "No user found"})
         }
     })
 }

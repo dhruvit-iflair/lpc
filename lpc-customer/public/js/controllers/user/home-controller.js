@@ -7,15 +7,38 @@ angular.module('inspinia')
             $scope.cmsId = true;
         })
 
+        $scope.sideLast = [];
+        if($rootScope.user) {
+            $scope.interval = 3000;
+            $http.get(env_var.bizApiUrl + '/getcustomerclass/' + $rootScope.user._id)
+                .then(function(res) {
+                    if(res.data.length != 0) {
+                        $rootScope.userClass = true
+                        $scope.all = res.data;
+                        for(var i= 0; i< $scope.all.length; i++) {
+                            $scope.sideLast.push({
+                                header: 'Upcoming Classes',
+                                p1: moment($scope.all[i].classes.date).format("D MMMM YYYY"),
+                                p2: $scope.all[i].classes.time_from + ' to ' + $scope.all[i].classes.time_to,
+                                p3: $scope.all[i].classes.class_name
+                            })
+                        }
+                    }
+                    
+                }, function(err) {
+                    console.log(err)
+                })
+        }
+
+        $scope.onCarouselInit = function() {
+            // console.log('carousel init');
+        }
+
         if($state.current.name == 'user.default') {
             $timeout(function() {
                 home()
                 equalheight('equal-height')
-            })
-        }
-        
-        $scope.onCarouselInit = function() {
-            // console.log('carousel init');
+            }, 500)
         }
 
         $scope.interval = 3000;
@@ -32,20 +55,20 @@ angular.module('inspinia')
         ]
         $scope.length = $scope.slides.length
 
-        $scope.sideLast = [
-            {
-                header:'Upcoming Classes',
-                p1: '6 Aug 2017',
-                p2: '4:00pm to 5:15pm',
-                p3: 'Growing Chefs (5-10y/o)'
-            },
-            {
-                header:'Upcoming Classes',
-                p1: '8 Aug 2017',
-                p2: '6:00pm to 10:15pm',
-                p3: 'Growing Chefs (5-10y/o)'
-            }
-        ]
+        // $scope.sideLast = [
+        //     {
+        //         header:'Upcoming Classes',
+        //         p1: '6 Aug 2017',
+        //         p2: '4:00pm to 5:15pm',
+        //         p3: 'Growing Chefs (5-10y/o)'
+        //     },
+        //     {
+        //         header:'Upcoming Classes',
+        //         p1: '8 Aug 2017',
+        //         p2: '6:00pm to 10:15pm',
+        //         p3: 'Growing Chefs (5-10y/o)'
+        //     }
+        // ]
 
         function home() {    
             var banner_title = document.querySelector('.banner h1')
@@ -74,17 +97,6 @@ angular.module('inspinia')
                     speed: 500
                 })
             }
-            // window.addEventListener('resize orientationchange', function() {
-            //     document.querySelector('.image-slider').slick('resize')
-            // })
-            
-            // window.addEventListener('resize', function() {
-            //     document.querySelector('.image-slider').slick('resize')
-            // });
-            
-            // window.addEventListener('orientationchange', function() {
-            //     document.querySelector('.image-slider').slick('resize')
-            // });
         }
 
         function equalheight (container) {

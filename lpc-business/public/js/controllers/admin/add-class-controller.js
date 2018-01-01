@@ -4,17 +4,18 @@ angular.module('inspinia')
         $loader.stop()
         $scope.title = 'Add Class';
         $scope.classData = {};
+        $scope.businesses = [];
 
         $http.get(env_var.apiUrl + '/classByUser')
-        .then(function(res) {   
-            $scope.businesses = [];
-            for(var i= 0; i< res.data.length; i++) {
-                $scope.businesses.push({
-                    _id: res.data[i]._id,
-                    name: res.data[i].firstname + ' ' + res.data[i].lastname
-                });
-            }
-        })
+            .then(function(res) { 
+                for(var i= 0; i< res.data.length; i++) {
+                    $scope.businesses.push({
+                        _id: res.data[i]._id,
+                        name: res.data[i].firstname + ' ' + res.data[i].lastname
+                    });
+                }
+                console.log($scope.businesses)
+            })
 
         $scope.duplicate = [
             'None', 'Daily', 'Weekly', 'Monthly'
@@ -123,7 +124,7 @@ angular.module('inspinia')
                 catchMeIfYouCan(classData);
                 var team = angular.merge(options, $scope.options2);
 
-                $http.postenv_var.apiUrl + ('/class', options)
+                $http.post(env_var.apiUrl + '/class', options)
                     .then(function(res) {
                         document.getElementById('class_form').reset();
                         $scope.submitted = false;
@@ -145,9 +146,11 @@ angular.module('inspinia')
             $scope.title = 'Edit Class'
             $http.get(env_var.apiUrl + '/class/' +$stateParams.id)
                 .then(function(res) {
+                    console.log(res.data)  
                     $scope.classData = res.data;
                     $scope.selected = $scope.classData._businessId.firstname + ' ' + $scope.classData._businessId.lastname;
-                    $scope.classData.date = moment(res.data.date).format('YYYY/MM/DD')
+                    $scope.classData.date = moment(res.data.date).format('YYYY/MM/DD');
+                    $scope.classData.location = res.data.location.address
                     angular.element(document.querySelector('#summernote'))
                         .summernote('code', res.data.instruction);
                     
@@ -183,7 +186,7 @@ angular.module('inspinia')
                     'time_from': classData.time_from,
                     'time_to': classData.time_to,
                     'class_name': classData.class_name,
-                    'location': classData.location,
+                    'location': $scope.classData.location._id,
                     'copies': classData.copies,
                     'price': classData.price,
                     'duplicate': classData.duplicate,

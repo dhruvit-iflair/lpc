@@ -39,13 +39,24 @@
                     </div>
                 </div>
             </div>
-            <div class="classes-box equal-height">
+            <div class="classes-box equal-height" ng-if="userClass">
                 <div class="classes-box-inner classes-slider">
                     <div class="classes-box-content" ng-repeat="last in sideLast track by $index">
                         <h2>{{last.header}}</h2>
                         <p>{{last.p1}}</p>
                         <p><span>{{last.p2}}</span></p>
                         <p>{{last.p3}}</p>
+                        <a class="btn" href="#">Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <div class="classes-box equal-height" ng-if="!userClass">
+                <div class="classes-box-inner classes-slider">
+                    <div class="classes-box-content">
+                        <h2>Upcoming classes</h2>
+                        <p>Login to see dates</p>
+                        <p><span>Login to see your upcoming classes</span></p>
+                        <p>Login to see title</p>
                         <a class="btn" href="#">Schedule</a>
                     </div>
                 </div>
