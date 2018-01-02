@@ -54,22 +54,7 @@ angular.module('inspinia')
             }
         ]
         $scope.length = $scope.slides.length
-
-        // $scope.sideLast = [
-        //     {
-        //         header:'Upcoming Classes',
-        //         p1: '6 Aug 2017',
-        //         p2: '4:00pm to 5:15pm',
-        //         p3: 'Growing Chefs (5-10y/o)'
-        //     },
-        //     {
-        //         header:'Upcoming Classes',
-        //         p1: '8 Aug 2017',
-        //         p2: '6:00pm to 10:15pm',
-        //         p3: 'Growing Chefs (5-10y/o)'
-        //     }
-        // ]
-
+        
         function home() {    
             var banner_title = document.querySelector('.banner h1')
             banner_title.setAttribute('data-content', banner_title)

@@ -1,9 +1,8 @@
 angular.module('inspinia')
     .controller('homeCtrl', function ($transitions, $loader, env_var, AuthInterceptor, $stateParams, $window, $state, $timeout, $location, $scope, $http, $rootScope, $anchorScroll) {
-        
-        $loader.stop()
 
         $http.get(env_var.apiUrl + '/cms').then(function(res) {
+            $loader.stop()
             $scope.cms = res.data;
             $scope.cmsId = true;
         });
@@ -11,7 +10,7 @@ angular.module('inspinia')
         $scope.sideLast = [];
         if($rootScope.user) {
             $scope.interval = 3000;
-            $http.get(env_var.apiUrl + '/getcustomerclass/' + $rootScope.user._id)
+            $http.get(env_var.apiUrl + '/getUserClass/' + $rootScope.user._id)
                 .then(function(res) {
                     if(res.data.length != 0) {
                         $rootScope.userClass = true
